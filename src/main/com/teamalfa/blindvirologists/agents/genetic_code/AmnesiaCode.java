@@ -5,11 +5,11 @@ import main.com.teamalfa.blindvirologists.agents.virus.AmnesiaVirus;
 public class AmnesiaCode extends GeneticCode {
     @Override
     public AmnesiaVirus createVirus() {
-        return null;
+        return new AmnesiaVirus();
     }
 
     @Override
     public Vaccine createVaccine() {
-        return null;
+        return new Vaccine(this);
     }
 }

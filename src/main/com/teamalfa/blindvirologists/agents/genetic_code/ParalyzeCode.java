@@ -5,11 +5,11 @@ import main.com.teamalfa.blindvirologists.agents.virus.ParalyzeVirus;
 public class ParalyzeCode extends GeneticCode{
     @Override
     public ParalyzeVirus createVirus() {
-        return null;
+        return new ParalyzeVirus();
     }
 
     @Override
     public Vaccine createVaccine() {
-        return null;
+        return new Vaccine(this);
     }
 }

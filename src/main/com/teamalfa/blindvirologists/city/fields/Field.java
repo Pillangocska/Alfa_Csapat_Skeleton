@@ -1,10 +1,9 @@
 package main.com.teamalfa.blindvirologists.city.fields;
 
-import main.com.teamalfa.blindvirologists.virologist.Virologist;
+import main.com.teamalfa.blindvirologists.equipments.Equipment;
 
 public class Field {
+    public boolean canChangeEquipment() { return false; }
 
-    public void searchedBy(Virologist virologist) {
-        // Doesn't do anything.
-    }
+    public void add(Equipment e) {}
 }

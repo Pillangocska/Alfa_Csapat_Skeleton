@@ -1,5 +1,6 @@
 package main.com.teamalfa.blindvirologists.virologist.backpack;
 
+import main.com.teamalfa.blindvirologists.agents.genetic_code.GeneticCode;
 import main.com.teamalfa.blindvirologists.city.fields.SafeHouse;
 import main.com.teamalfa.blindvirologists.equipments.Equipment;
 import main.com.teamalfa.blindvirologists.virologist.Virologist;
@@ -27,5 +28,22 @@ public class Backpack {
             SafeHouse safeHouse = (SafeHouse) virologist.getField();
             safeHouse.remove(equipment);
         };
+    }
+
+    public void add(GeneticCode geneticCode) {
+        geneticCodePocket.add(geneticCode);
+    }
+
+    public void createVirus(GeneticCode geneticCode) {
+        // TODO
+    }
+
+    public void createVaccine(GeneticCode geneticCode) {
+        // TODO
+    }
+
+
+    public Virologist getVirologist() {
+        return virologist;
     }
 }

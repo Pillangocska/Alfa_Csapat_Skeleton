@@ -9,12 +9,4 @@ abstract public class Virus extends Agent {
             this.target = target;
         }
     }
-
-    @Override
-    public void step() {
-        super.step();
-        if(target != null && duration == 0) {
-            target.removeVirus(this);
-        }
-    }
 }

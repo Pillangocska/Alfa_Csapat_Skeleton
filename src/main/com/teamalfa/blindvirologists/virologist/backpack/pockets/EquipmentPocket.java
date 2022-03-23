@@ -13,6 +13,10 @@ public class EquipmentPocket extends Pocket{
     private ArrayList<Equipment> equipmentHolder = new ArrayList<>();
     private ArrayList<Equipment> wornEquipments= new ArrayList<>();
 
+    public EquipmentPocket(Backpack b){
+        backpack = b;
+    }
+
     public Backpack getBackpack() { return backpack; }
 
     public void setBackpack(Backpack b) { backpack = b; }
@@ -34,7 +38,7 @@ public class EquipmentPocket extends Pocket{
             if(wornEquipments.contains(e))
                 e.unEquip();
             else
-                e.Equip();
+                e.equip();
         }
     }
 

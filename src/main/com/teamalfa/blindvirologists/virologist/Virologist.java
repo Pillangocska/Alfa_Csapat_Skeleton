@@ -13,10 +13,13 @@ public class Virologist {
     private ArrayList<Virus> activeViruses;
     private Field field;
     private ArrayList<Equipment> wornEquipment = new ArrayList<>();
+    private Backpack backpack;
+    private Field field;
 
     public Virologist() {
         protectionBank = new ArrayList<>();
         activeViruses = new ArrayList<>();
+        backpack = new Backpack(this);
     }
 
 
@@ -26,19 +29,21 @@ public class Virologist {
         return true;
     }
 
-    public void protectedBy(GeneticCode geneticCode) {
-        protectionBank.add(geneticCode);
+    public void protectedBy(Vaccine vaccine) {
+        protectionBank.add(vaccine.getGeneticCode());
     }
 
     public void removeVirus(Virus virus) {
         activeViruses.remove(virus);
     }
 
-    public void removeProtection(GeneticCode geneticCode) {
-        protectionBank.remove(geneticCode);
+    public void removeProtection(Vaccine vaccine) {
+        protectionBank.remove(vaccine.getGeneticCode());
     }
 
-    public Field getField() { return field; }
+    public Field getField() {
+        return field;
+    }
 
     public void removeWorn(Equipment equipment) {
         wornEquipment.remove(equipment);

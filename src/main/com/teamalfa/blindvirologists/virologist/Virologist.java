@@ -17,7 +17,7 @@ public class Virologist {
     public Virologist() {
         protectionBank = new ArrayList<>();
         activeViruses = new ArrayList<>();
-        backpack = new Backpack();
+        backpack = new Backpack(this);
     }
 
 

@@ -1,5 +1,4 @@
 package main.com.teamalfa.blindvirologists.agents;
-
 import main.com.teamalfa.blindvirologists.agents.genetic_code.AmnesiaCode;
 import main.com.teamalfa.blindvirologists.agents.genetic_code.DanceCode;
 import main.com.teamalfa.blindvirologists.agents.genetic_code.ParalyzeCode;

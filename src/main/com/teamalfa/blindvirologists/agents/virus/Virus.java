@@ -1,5 +1,4 @@
 package main.com.teamalfa.blindvirologists.agents.virus;
-
 import main.com.teamalfa.blindvirologists.agents.Agent;
 import main.com.teamalfa.blindvirologists.virologist.Virologist;
 

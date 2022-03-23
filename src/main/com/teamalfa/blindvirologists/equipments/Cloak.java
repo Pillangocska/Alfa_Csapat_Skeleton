@@ -4,7 +4,11 @@ import java.util.Random;
 
 public class Cloak extends Equipment{
 
-    private double protectionRate = 82.3;
+    private double protectionRate;
+
+    public Cloak(){
+        protectionRate = 82.3;
+    }
 
     public boolean protect(){
         Random r = new Random();

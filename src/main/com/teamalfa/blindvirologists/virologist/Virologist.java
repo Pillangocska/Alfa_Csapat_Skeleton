@@ -5,8 +5,10 @@ import main.com.teamalfa.blindvirologists.agents.genetic_code.GeneticCode;
 import main.com.teamalfa.blindvirologists.agents.virus.Virus;
 import main.com.teamalfa.blindvirologists.city.fields.Field;
 import main.com.teamalfa.blindvirologists.equipments.Equipment;
+import main.com.teamalfa.blindvirologists.virologist.backpack.Backpack;
 
 import java.util.ArrayList;
+
 
 public class Virologist {
     private ArrayList<GeneticCode> protectionBank;
@@ -14,7 +16,6 @@ public class Virologist {
     private Field field;
     private ArrayList<Equipment> wornEquipment = new ArrayList<>();
     private Backpack backpack;
-    private Field field;
 
     public Virologist() {
         protectionBank = new ArrayList<>();

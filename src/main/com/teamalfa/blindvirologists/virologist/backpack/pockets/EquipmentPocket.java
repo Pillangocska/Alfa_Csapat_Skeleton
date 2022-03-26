@@ -12,24 +12,45 @@ public class EquipmentPocket extends Pocket{
     private Backpack backpack;
     private ArrayList<Equipment> equipmentHolder = new ArrayList<>();
     private ArrayList<Equipment> wornEquipments= new ArrayList<>();
+    //private int wornSize;
 
     public EquipmentPocket(Backpack b){
         backpack = b;
+        //wornSize = 3;
+        maxSize = 5;
     }
 
-    public Backpack getBackpack() { return backpack; }
+    public Backpack getBackpack() {
+        return backpack;
+    }
 
-    public void setBackpack(Backpack b) { backpack = b; }
+    public void setBackpack(Backpack b) {
+        backpack = b;
+    }
 
-    public ArrayList<Equipment> getEquipmentHolder() { return equipmentHolder; }
+    public ArrayList<Equipment> getEquipmentHolder() {
+        return equipmentHolder;
+    }
 
-    public void setEquipEquipmentHolder(ArrayList<Equipment> e) { equipmentHolder = e; }
+    public void setEquipEquipmentHolder(ArrayList<Equipment> e) {
+        equipmentHolder = e;
+    }
 
-    public ArrayList<Equipment> getWornEquipments() { return wornEquipments; }
+    public ArrayList<Equipment> getWornEquipments() {
+        return wornEquipments;
+    }
 
-    public void setWornEquipments(ArrayList<Equipment> e) { wornEquipments = e; }
+    public void setWornEquipments(ArrayList<Equipment> e) {
+        wornEquipments = e;
+    }
 
-
+    public boolean add(Equipment e) {
+        if(equipmentHolder.size()+ 1 <= maxSize){
+            equipmentHolder.add(e);
+            return true;
+        }
+        return false;
+    }
 
     public void toggle(Equipment e){
         Virologist v = backpack.getVirologist();
@@ -54,4 +75,8 @@ public class EquipmentPocket extends Pocket{
         }
     }
 
+    @Override
+    public int getCurrentSize() {
+        return equipmentHolder.size();
+    }
 }

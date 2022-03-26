@@ -18,15 +18,15 @@ public class Vaccine extends Agent {
 
     @Override
     public void apply(Virologist target) {
-        target.protectedBy(geneticCode);
+        target.protectedBy(this);
         this.target = target;
     }
 
-    @Override
-    public void step() {
+    //@Override
+    /*public void step() {
         super.step();
         if(target != null && duration == 0) {
             target.removeProtection(geneticCode);
         }
-    }
+    }*/
 }

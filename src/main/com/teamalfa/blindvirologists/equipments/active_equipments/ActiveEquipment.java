@@ -5,6 +5,8 @@ import main.com.teamalfa.blindvirologists.equipments.Equipment;
 import main.com.teamalfa.blindvirologists.virologist.Virologist;
 
 abstract public class ActiveEquipment extends Equipment {
+    //private int cooldownDuration;
+    //private int cooldown = 0;
 
     public abstract void use(Virologist v, Virus virus);
 
@@ -17,5 +19,7 @@ abstract public class ActiveEquipment extends Equipment {
         virologist.removeWorn(this);
         virologist.removeActive(this);
     }
+
+    //public void startCooldown();
 
 }

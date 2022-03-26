@@ -1,4 +1,5 @@
 package main.com.teamalfa.blindvirologists.agents;
+
 import main.com.teamalfa.blindvirologists.agents.genetic_code.AmnesiaCode;
 import main.com.teamalfa.blindvirologists.agents.genetic_code.DanceCode;
 import main.com.teamalfa.blindvirologists.agents.genetic_code.ParalyzeCode;
@@ -20,4 +21,12 @@ public class Vaccine extends Agent {
         target.protectedBy(this);
         this.target = target;
     }
+
+    //@Override
+    /*public void step() {
+        super.step();
+        if(target != null && duration == 0) {
+            target.removeProtection(geneticCode);
+        }
+    }*/
 }

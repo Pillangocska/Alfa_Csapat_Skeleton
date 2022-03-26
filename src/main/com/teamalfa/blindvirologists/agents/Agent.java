@@ -1,3 +1,4 @@
+
 package main.com.teamalfa.blindvirologists.agents;
 
 import main.com.teamalfa.blindvirologists.agents.genetic_code.GeneticCode;
@@ -9,9 +10,7 @@ abstract public class Agent {
     protected Virologist target = null;
     protected GeneticCode geneticCode;
 
-    public Agent() {
-
-    }
+    public Agent() {}
 
     public GeneticCode getGeneticCode() {
         return geneticCode;
@@ -19,4 +18,3 @@ abstract public class Agent {
 
     abstract public void apply(Virologist target);
 }
-

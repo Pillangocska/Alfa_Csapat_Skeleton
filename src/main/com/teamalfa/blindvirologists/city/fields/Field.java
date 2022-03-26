@@ -40,8 +40,10 @@ public class Field {
     //Doesn't do anything
     public void searchedBy(Virologist virologist){}
     //todo
+
     public boolean canChangeEquipment() {
         return false;
     }
+
     public void add(Equipment e) { }
 }

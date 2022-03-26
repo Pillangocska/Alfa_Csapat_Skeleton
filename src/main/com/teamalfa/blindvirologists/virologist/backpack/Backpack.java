@@ -1,4 +1,6 @@
 package main.com.teamalfa.blindvirologists.virologist.backpack;
+
+import main.com.teamalfa.blindvirologists.agents.genetic_code.GeneticCode;
 import main.com.teamalfa.blindvirologists.city.fields.SafeHouse;
 import main.com.teamalfa.blindvirologists.equipments.Equipment;
 import main.com.teamalfa.blindvirologists.virologist.Virologist;
@@ -14,23 +16,42 @@ public class Backpack {
     private Virologist virologist;
 
     public Backpack(Virologist virologist) {
-        equipmentPocket = new EquipmentPocket();
-        agentPocket = new AgentPocket();
-        elementBank = new ElementBank();
-        geneticCodePocket = new GeneticCodePocket();
+        equipmentPocket = new EquipmentPocket(this);
+        agentPocket = new AgentPocket(this);
+        elementBank = new ElementBank(0,0);
+        geneticCodePocket = new GeneticCodePocket(this);
         this.virologist = virologist;
     }
 
-    public Backpack() {
-
-    }
-
     public void add(Equipment equipment) {
-        if(equipmentPocket.add(equipment)){
+        if(equipmentPocket.getEquipmentHolder().add(equipment)){
             SafeHouse safeHouse = (SafeHouse) virologist.getField();
             safeHouse.remove(equipment);
-        }
+        };
     }
 
-    public Virologist getVirologist() { return null; }
+    public void add(GeneticCode geneticCode) {
+        geneticCodePocket.getGeneticCodes().add(geneticCode);
+    }
+
+    public void createVirus(GeneticCode geneticCode) {
+        // TODO
+    }
+
+    public void createVaccine(GeneticCode geneticCode) {
+        // TODO
+    }
+
+
+    public Virologist getVirologist() {
+        return virologist;
+    }
+
+    public void deleteAllGeneticCodes() {
+        geneticCodePocket.deleteAll();
+    }
+
+    public ElementBank getElementBank() {
+        return elementBank;
+    }
 }

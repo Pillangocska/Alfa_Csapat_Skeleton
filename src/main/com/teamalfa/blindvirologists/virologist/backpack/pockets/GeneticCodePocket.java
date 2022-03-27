@@ -26,7 +26,9 @@ public class GeneticCodePocket extends Pocket{
     }
 
     public void add(GeneticCode gc){
+        AController.printCall(this, "add", new Object[]{gc});
         geneticCodes.add(gc);
+        AController.printReturn(null);
     }
 
     public void deleteAll() {

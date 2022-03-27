@@ -14,6 +14,7 @@ import main.com.teamalfa.blindvirologists.equipments.Bag;
 import main.com.teamalfa.blindvirologists.equipments.Cloak;
 import main.com.teamalfa.blindvirologists.equipments.active_equipments.Gloves;
 import main.com.teamalfa.blindvirologists.virologist.Virologist;
+import main.com.teamalfa.blindvirologists.virologist.backpack.ElementBank;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -25,7 +26,10 @@ public class AController{
     static private HashMap<Object, String> objectNameDict = new HashMap<>();  // store object names for printing
 
     public static void registerObject(Object parent, Object object, String name) {
-        objectNameDict.put(object, objectNameDict.get(parent)+"."+name);
+        if(parent == null)
+            objectNameDict.put(object, name);
+        else
+            objectNameDict.put(object, objectNameDict.get(parent)+"."+name);
     }
 
     public static int getCallCount() {
@@ -46,7 +50,9 @@ public class AController{
         if(object != null) {
             String msg = "";
             for(int i = 0; i < callCount; i++) msg += "\t";
-            msg += "└→return " + objectNameDict.get(object);
+            msg += "└→return ";
+            if(object instanceof Boolean) msg += (Boolean) object;
+            else msg += objectNameDict.get(object);
             System.out.println(msg);
         }
 
@@ -217,8 +223,8 @@ public class AController{
     }
 
     public void Test2(){
-        Virologist v1 = new Virologist();
-        StoreHouse s1 = new StoreHouse(20,30);
+        Virologist v1 = new Virologist(); objectNameDict.put(v1, "virologist"); v1.registerObjects();
+        StoreHouse s1 = new StoreHouse(20,30); objectNameDict.put(s1, "storeHouse"); s1.registerObjects();
         v1.setField(s1);
         v1.search();
     }

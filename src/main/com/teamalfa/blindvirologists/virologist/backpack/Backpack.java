@@ -39,8 +39,18 @@ public class Backpack {
     }
 
     public void add(GeneticCode geneticCode) {
-        AController.printCall(this, "add", new Object[]{geneticCode});
-        geneticCodePocket.getGeneticCodes().add(geneticCode);
+        AController.printCall(this,"add", new Object[]{geneticCode});
+
+
+        geneticCodePocket.add(geneticCode);
+
+        AController.printReturn(null);
+    }
+
+    public void add(ElementBank elements) {
+        AController.printCall(this, "add", new Object[]{elements});
+        ElementBank added = elementBank.add(elements);
+        elements.remove(added);
         AController.printReturn(null);
     }
 

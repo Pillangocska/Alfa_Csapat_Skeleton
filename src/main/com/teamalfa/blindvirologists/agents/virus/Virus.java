@@ -1,5 +1,6 @@
 package main.com.teamalfa.blindvirologists.agents.virus;
 
+import main.com.teamalfa.blindvirologists.AController;
 import main.com.teamalfa.blindvirologists.agents.Agent;
 import main.com.teamalfa.blindvirologists.city.fields.Field;
 import main.com.teamalfa.blindvirologists.virologist.Virologist;
@@ -31,5 +32,7 @@ abstract public class Virus extends Agent {
         return false;
     }
 
-    public abstract Field affectMovement(Field current);
+    public Field affectMovement(Field current) {
+        return null;
+    }
 }

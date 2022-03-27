@@ -1,5 +1,6 @@
 package main.com.teamalfa.blindvirologists.virologist;
 
+import main.com.teamalfa.blindvirologists.AController;
 import main.com.teamalfa.blindvirologists.agents.Agent;
 import main.com.teamalfa.blindvirologists.agents.Vaccine;
 import main.com.teamalfa.blindvirologists.agents.genetic_code.GeneticCode;
@@ -35,10 +36,22 @@ public class Virologist {
     public Backpack getBackpack() { return backpack; }
 
     public void move(Field destination) {
-        if(!(activeViruses.isEmpty()))
-            destination = activeViruses.get(0).affectMovement(destination);
-        this.field.remove(this);
+        int currentCall = AController.getCallCount();
+        AController.printCall(this, "move", new Object[]{destination});
+
+        Field modified = null;
+        for(Virus virus : activeViruses) {
+            modified = virus.affectMovement(field);
+        }
+
+
+        if(modified != null) destination = modified;
+
+        field.remove(this);
         destination.accept(this);
+        AController.setCallCount(currentCall);
+        field = destination;
+        AController.setCallCount(currentCall);
     }
 
     public void use(ActiveEquipment a, Virologist v) {

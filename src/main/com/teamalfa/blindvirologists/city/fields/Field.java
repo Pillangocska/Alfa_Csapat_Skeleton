@@ -1,7 +1,9 @@
 package main.com.teamalfa.blindvirologists.city.fields;
+import main.com.teamalfa.blindvirologists.AController;
 import main.com.teamalfa.blindvirologists.equipments.Equipment;
 import main.com.teamalfa.blindvirologists.virologist.Virologist;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,11 +28,17 @@ public class Field {
 
     //Adding and removing a virologist
     public void accept(Virologist virologist){
+        int currentCall = AController.getCallCount();
+        AController.printCall(this, "accept", new Object[]{virologist});
         virologists.add(virologist);
+        AController.setCallCount(currentCall);
     }
 
     public void remove(Virologist virologist){
+        int currentCall = AController.getCallCount();
+        AController.printCall(this, "remove", new Object[]{virologist});
         virologists.remove(virologist);
+        AController.setCallCount(currentCall);
     }
 
     //Gives back the virologists on the field
@@ -49,5 +57,9 @@ public class Field {
 
     public void setNeighbour(Field f1) {
         this.neighbours.add(f1);
+    }
+
+    public void setNeighbours(ArrayList<Field> neighbours) {
+        this.neighbours = neighbours;
     }
 }

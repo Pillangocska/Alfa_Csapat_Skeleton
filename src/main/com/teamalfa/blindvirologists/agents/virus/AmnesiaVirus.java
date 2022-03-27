@@ -12,10 +12,4 @@ public class AmnesiaVirus extends Virus {
             this.target.getBackpack().deleteAllGeneticCodes();
         }
     }
-
-    public Field affectMovement(Field current){
-        return current;
-    }
-
-
 }

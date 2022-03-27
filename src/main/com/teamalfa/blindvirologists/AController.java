@@ -15,9 +15,38 @@ import main.com.teamalfa.blindvirologists.equipments.active_equipments.Gloves;
 import main.com.teamalfa.blindvirologists.virologist.Virologist;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Scanner;
 
 public class AController{
+
+    static private int callCount = 0;
+    static private HashMap<Object, String> objectNameDict = new HashMap<>();
+
+    public static int getCallCount() {
+        return callCount;
+    }
+
+    public static void setCallCount(int value) {
+        callCount = value;
+    }
+
+    public static void printCall(Object object, String method, Object[] parameters) {
+        ArrayList<String> args = new ArrayList<>();
+        if(parameters != null)
+            for(Object obj : parameters) args.add(objectNameDict.get(obj));
+
+        String msg = "";
+        for(int i = 0; i < callCount; i++) msg += '\t';
+        msg += objectNameDict.get(object) + "."  + method + "(";
+        for(int i = 0; i < args.size(); i++) {
+            msg += args.get(i);
+            if(i != args.size() - 1) msg += ", ";
+        }
+        msg += ")";
+        callCount++;
+        System.out.println(msg);
+    }
 
     public void runTests() {
         while(true) {
@@ -162,11 +191,20 @@ public class AController{
     }
 
     public void Test4(){
-        Virologist v1 = new Virologist();
-        DanceVirus dv = new DanceVirus();
-        v1.infectedBy(dv);
-        ArrayList<Field> fields = v1.getField().getNeighbours();
-        v1.move(fields.get(0));
+        Virologist v1 = new Virologist(); objectNameDict.put(v1, "v1");
+        DanceVirus dv = new DanceVirus(); objectNameDict.put(dv, "danceVirus");
+        v1.addVirus(dv);
+        Field current = new Field(); objectNameDict.put(current, "current");
+        Field destination = new Field(); objectNameDict.put(destination, "destination");
+        ArrayList<Field> neighbours = new ArrayList<>();
+        for(int i = 0; i < 4; i++) {
+            Field field = new Field(); objectNameDict.put(field, "alteredDestination");
+            neighbours.add(field);
+        }
+        current.setNeighbours(neighbours);
+        v1.setField(current);
+        callCount = 0;
+        v1.move(destination);
     }
 
     public void Test5(){

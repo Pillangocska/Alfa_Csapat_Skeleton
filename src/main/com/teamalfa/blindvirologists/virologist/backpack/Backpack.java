@@ -1,6 +1,7 @@
 package main.com.teamalfa.blindvirologists.virologist.backpack;
 
 import main.com.teamalfa.blindvirologists.AController;
+import main.com.teamalfa.blindvirologists.agents.Vaccine;
 import main.com.teamalfa.blindvirologists.agents.genetic_code.GeneticCode;
 import main.com.teamalfa.blindvirologists.agents.virus.Virus;
 import main.com.teamalfa.blindvirologists.city.fields.SafeHouse;
@@ -68,7 +69,12 @@ public class Backpack {
     }
 
     public void createVaccine(GeneticCode geneticCode) {
-        // TODO
+        AController.printCall(this, "createVaccine", new Object[]{geneticCode});
+        Vaccine vaccine = geneticCode.createVaccine(elementBank);
+        if(vaccine != null) {
+            agentPocket.addAgent(vaccine);
+        }
+        AController.printReturn(null);
     }
 
 

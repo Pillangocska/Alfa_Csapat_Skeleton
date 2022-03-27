@@ -20,7 +20,8 @@ abstract public class Agent {
     }
 
     public GeneticCode getGeneticCode() {
-        return geneticCode;
+        AController.printCall(this, "getGeneticCode", null);
+        return (GeneticCode) AController.printReturn(geneticCode);
     }
 
     abstract public void apply(Virologist target);

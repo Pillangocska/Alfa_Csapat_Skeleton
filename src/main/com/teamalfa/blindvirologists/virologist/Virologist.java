@@ -159,7 +159,14 @@ public class Virologist {
      * @param vaccine The vaccine that gets injected to the virologist.
      */
     public void protectedBy(Vaccine vaccine) {
-        protectionBank.add(vaccine.getGeneticCode());
+        AController.printCall(this, "protectedBy", new Object[]{vaccine});
+
+        GeneticCode geneticcode = vaccine.getGeneticCode();
+        AController.printCall(this, "addProtection", new Object[]{geneticcode});
+        protectionBank.add(geneticcode);
+        AController.printReturn(null);
+
+        AController.printReturn(null);
     }
 
     /**

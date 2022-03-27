@@ -38,6 +38,21 @@ public class ParalyzeCode extends GeneticCode{
      */
     @Override
     public Vaccine createVaccine(ElementBank elementBank) {
-        return new Vaccine(this);
+        AController.printCall(this, "createVaccine", new Object[]{elementBank});
+
+        Vaccine pv = new Vaccine(this);
+        AController.registerObject(null, pv, "paralyzeVaccine");
+        // register nested objects
+        pv.registerObjects();
+
+        // handle cost
+        ElementBank cost = pv.getCost();
+        if(elementBank.remove(cost)) {
+            return (Vaccine) AController.printReturn(pv);
+        }
+
+        // Null return can be printed out like this
+        AController.printReturn("null");
+        return null;
     }
 }

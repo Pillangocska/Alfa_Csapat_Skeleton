@@ -341,11 +341,11 @@ public class AController{
     }
 
     public void Test11(){
-        Virologist v1 = new Virologist();
-        AmnesiaCode amnesiaCode = new AmnesiaCode();
+        Virologist v1 = new Virologist(); objectNameDict.put(v1, "virologist"); v1.registerObjects();
+        AmnesiaCode amnesiaCode = new AmnesiaCode(); objectNameDict.put(amnesiaCode, "amnesiaCode");
         v1.getBackpack().createVaccine(amnesiaCode);
-        //todo itt vhogy vissza kellene kapni a vakcinat
-        //v1.use(,v1);
+        Agent toUse = (Agent) askMultiChoice("vaccine to use",v1.getBackpack().getAgents());
+        v1.use(toUse, v1);
     }
 
     public void Test12(){

@@ -36,7 +36,6 @@ public class Virologist {
     public Backpack getBackpack() { return backpack; }
 
     public void move(Field destination) {
-        int currentCall = AController.getCallCount();
         AController.printCall(this, "move", new Object[]{destination});
 
         Field modified = null;
@@ -49,9 +48,9 @@ public class Virologist {
 
         field.remove(this);
         destination.accept(this);
-        AController.setCallCount(currentCall);
         field = destination;
-        AController.setCallCount(currentCall);
+
+        AController.decCallCount();
     }
 
     public void use(ActiveEquipment a, Virologist v) {

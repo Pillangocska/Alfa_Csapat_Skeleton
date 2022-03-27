@@ -27,8 +27,8 @@ public class AController{
         return callCount;
     }
 
-    public static void setCallCount(int value) {
-        callCount = value;
+    public static void decCallCount() {
+        callCount--;
     }
 
     public static void printCall(Object object, String method, Object[] parameters) {
@@ -51,7 +51,8 @@ public class AController{
     public void runTests() {
         while(true) {
         System.out.println("\nEnter a number between 1 and 21...");
-        System.out.println("1: Virologist searches in a laboratory that contains genetic code\n" +
+        System.out.println(
+                "1: Virologist searches in a laboratory that contains genetic code\n" +
                 "2: Virologist searches in a storehouse and collects elements\n" +
                 "3: Virologist searches a safehouse that contains equipment and picks it up\n" +
                 "4: Virologist moves while affected by DanceVirus\n" +

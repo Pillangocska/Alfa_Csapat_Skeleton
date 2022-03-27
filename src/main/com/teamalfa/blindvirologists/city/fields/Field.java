@@ -28,17 +28,15 @@ public class Field {
 
     //Adding and removing a virologist
     public void accept(Virologist virologist){
-        int currentCall = AController.getCallCount();
         AController.printCall(this, "accept", new Object[]{virologist});
         virologists.add(virologist);
-        AController.setCallCount(currentCall);
+        AController.decCallCount();
     }
 
     public void remove(Virologist virologist){
-        int currentCall = AController.getCallCount();
         AController.printCall(this, "remove", new Object[]{virologist});
         virologists.remove(virologist);
-        AController.setCallCount(currentCall);
+        AController.decCallCount();
     }
 
     //Gives back the virologists on the field

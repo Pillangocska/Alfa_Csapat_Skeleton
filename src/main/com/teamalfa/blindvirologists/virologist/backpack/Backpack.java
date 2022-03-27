@@ -73,7 +73,9 @@ public class Backpack {
 
 
     public Virologist getVirologist() {
-        return virologist;
+        AController.printCall(this, "getVirologist", null);
+
+        return (Virologist) AController.printReturn(virologist);
     }
 
     public EquipmentPocket getEquipmentPocket(){
@@ -87,7 +89,8 @@ public class Backpack {
     }
 
     public ElementBank getElementBank() {
-        return elementBank;
+        AController.printCall(this, "getElementBank", null);
+        return (ElementBank) AController.printReturn(elementBank);
     }
 
     public ArrayList<Object> getAgents() {

@@ -5,6 +5,11 @@ import main.com.teamalfa.blindvirologists.agents.virus.ParalyzeVirus;
 import main.com.teamalfa.blindvirologists.virologist.backpack.ElementBank;
 
 public class ParalyzeCode extends GeneticCode{
+
+    /**
+     * This method creates a Virus with the paralyze geneticcode.
+     * @return The ParalyzeVirus that has been created.
+     */
     @Override
     public ParalyzeVirus createVirus(ElementBank elementBank) {
         // print out method call
@@ -27,6 +32,10 @@ public class ParalyzeCode extends GeneticCode{
         return null;
     }
 
+    /**
+     * This method create a Vaccine with the paralyze geneticcode.
+     * @return The Vaccine that has been created.
+     */
     @Override
     public Vaccine createVaccine(ElementBank elementBank) {
         return new Vaccine(this);

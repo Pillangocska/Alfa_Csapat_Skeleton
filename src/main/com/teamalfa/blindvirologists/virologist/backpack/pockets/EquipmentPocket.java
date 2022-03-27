@@ -62,14 +62,18 @@ public class EquipmentPocket extends Pocket{
     }
 
     public void toggle(Equipment e){
+        AController.printCall(this, "toggle", new Object[]{e});
+
         Virologist v = backpack.getVirologist();
         Field f = v.getField();
         if(f.canChangeEquipment()){
-            if(wornEquipments.contains(e))
+            if(AController.askYesOrNo("Do you want to unwear the bag?"))
                 e.unEquip();
             else
                 e.equip();
         }
+
+        AController.printReturn(null);
     }
 
 

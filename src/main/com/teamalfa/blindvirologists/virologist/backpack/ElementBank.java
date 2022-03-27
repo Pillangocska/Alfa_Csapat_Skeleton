@@ -17,14 +17,22 @@ public class ElementBank {
     }
 
     public void increaseMaxSize(int extraSize) {
+        AController.printCall(this, "increaseMaxSize", new Object[]{extraSize});
+
         aminoAcidMaxSize += extraSize;
         nucleotideMaxSize += extraSize;
+
+        AController.printReturn(null);
     }
 
 
     public void decreaseMaxSize(int extraSize) {
+        AController.printCall(this, "decreaseMaxSize", new Object[]{extraSize});
+
         aminoAcidMaxSize -= extraSize;
         nucleotideMaxSize -= extraSize;
+
+        AController.printReturn(null);
     }
 
     public ElementBank add(ElementBank elements) {

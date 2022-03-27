@@ -13,6 +13,8 @@ abstract public class Equipment {
         virologist.addWorn(this);
     }
 
+    public void setVirologist(Virologist v) {this.virologist = v;}
+
     public boolean protect() {
         return false;
     }

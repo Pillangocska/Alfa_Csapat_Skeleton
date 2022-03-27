@@ -349,10 +349,13 @@ public class AController{
     }
 
     public void Test12(){
-        Virologist v1 = new Virologist();
-        SafeHouse sh1 = new SafeHouse();
+        Virologist v1 = new Virologist(); objectNameDict.put(v1, "virologist");
+        SafeHouse sh1 = new SafeHouse(); objectNameDict.put(sh1, "safeHouse");
         v1.setField(sh1);
-        Bag bag = new Bag(2000);
+        v1.registerObjects();
+        Bag bag = new Bag(2000); objectNameDict.put(bag, "bag");
+        bag.setVirologist(v1);
+
         v1.getBackpack().getEquipmentPocket().toggle(bag);
     }
 
@@ -454,6 +457,13 @@ public class AController{
         }
     }
 
+    /**
+     * This method is used when one of the testcases stop
+     * so the user can decide which branch of the test should be run.
+     * @param optionType The name of the choice that have to be made.
+     * @param choices The options the user can choose from.
+     * @return The chose option.
+     */
     public static Object askMultiChoice(String optionType, ArrayList<Object> choices) {
         if(choices.isEmpty()) {
             System.out.println("There are no choices in "+ objectNameDict.get(choices));
@@ -491,6 +501,10 @@ public class AController{
         }
     }
 
+    /**
+     * This method is called when one of the testcases has finished running.
+     * By pressing any key the user will be escorted back into the main menu.
+     */
     private void backToMenuAndReset() {
         callCount = 0;
         objectNameDict.clear();

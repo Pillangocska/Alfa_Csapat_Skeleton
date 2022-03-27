@@ -43,14 +43,26 @@ public class Field {
     //except the one calling it todo
     public List<Virologist> searchForVirologist(){ return null; }
 
-    //Doesn't do anything
+    /**
+     * This method is called when a virologist searches a Field.
+     * Doesn't do anything cause field is always empty.
+     * @param virologist The Virologist who stands on the Field and searches it.
+     */
     public void searchedBy(Virologist virologist){}
-    //todo
 
+    /**
+     * Tells the Virologist if it's possible to change or toss any equipment on this Field.
+     * Default: it's not possible.
+     * @return false
+     */
     public boolean canChangeEquipment() {
         return false;
     }
 
+    /**
+     * doesnt do anything
+     * @param e the equipment that gets put down to the field.
+     */
     public void add(Equipment e) { }
 
     public void setNeighbour(Field f1) {

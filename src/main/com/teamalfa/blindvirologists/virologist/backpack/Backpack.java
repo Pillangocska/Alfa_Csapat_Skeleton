@@ -27,7 +27,7 @@ public class Backpack {
         if(equipmentPocket.getEquipmentHolder().add(equipment)){
             SafeHouse safeHouse = (SafeHouse) virologist.getField();
             safeHouse.remove(equipment);
-        };
+        }
     }
 
     public void add(GeneticCode geneticCode) {
@@ -45,6 +45,10 @@ public class Backpack {
 
     public Virologist getVirologist() {
         return virologist;
+    }
+
+    public EquipmentPocket getEquipmentPocket(){
+        return equipmentPocket;
     }
 
     public void deleteAllGeneticCodes() {

@@ -46,4 +46,8 @@ public class Field {
     }
 
     public void add(Equipment e) { }
+
+    public void setNeighbour(Field f1) {
+        this.neighbours.add(f1);
+    }
 }

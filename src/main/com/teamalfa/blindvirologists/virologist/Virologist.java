@@ -28,6 +28,9 @@ public class Virologist {
     public Field getField() {
         return field;
     }
+    public void setField(Field f){
+        this.field = f;
+    }
 
     public Backpack getBackpack() { return backpack; }
 
@@ -83,7 +86,9 @@ public class Virologist {
     }
 
     public void search() {
-        field.searchForVirologist();
+        field.searchedBy(this);
+        //Printouts
+        System.out.println("Virologist.search()");
     }
 
     //todo searchForVirologist
@@ -91,9 +96,7 @@ public class Virologist {
     private boolean checkUsageAffect() {
         if(activeViruses.isEmpty())
             return false;
-        else if(!(activeViruses.get(0).affectUsage()))
-            return false;
-        return true;
+        else return activeViruses.get(0).affectUsage();
     }
 
     public void addVirus(Virus virus) {

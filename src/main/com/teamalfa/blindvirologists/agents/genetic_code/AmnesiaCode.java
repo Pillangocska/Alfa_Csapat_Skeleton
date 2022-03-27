@@ -1,6 +1,7 @@
 package main.com.teamalfa.blindvirologists.agents.genetic_code;
 import main.com.teamalfa.blindvirologists.agents.Vaccine;
 import main.com.teamalfa.blindvirologists.agents.virus.AmnesiaVirus;
+import main.com.teamalfa.blindvirologists.virologist.backpack.ElementBank;
 
 public class AmnesiaCode extends GeneticCode {
     /**
@@ -8,7 +9,7 @@ public class AmnesiaCode extends GeneticCode {
      * @return The AmnesiaVirus that has been created.
      */
     @Override
-    public AmnesiaVirus createVirus() {
+    public AmnesiaVirus createVirus(ElementBank elementBank) {
         return new AmnesiaVirus();
     }
 
@@ -17,7 +18,7 @@ public class AmnesiaCode extends GeneticCode {
      * @return The Veccine that has been created.
      */
     @Override
-    public Vaccine createVaccine() {
+    public Vaccine createVaccine(ElementBank elementBank) {
         return new Vaccine(this);
     }
 }

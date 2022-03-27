@@ -1,11 +1,14 @@
 package main.com.teamalfa.blindvirologists;
 
+import main.com.teamalfa.blindvirologists.agents.Agent;
+import main.com.teamalfa.blindvirologists.agents.Vaccine;
 import main.com.teamalfa.blindvirologists.agents.genetic_code.AmnesiaCode;
 import main.com.teamalfa.blindvirologists.agents.genetic_code.GeneticCode;
 import main.com.teamalfa.blindvirologists.agents.genetic_code.ParalyzeCode;
 import main.com.teamalfa.blindvirologists.agents.virus.AmnesiaVirus;
 import main.com.teamalfa.blindvirologists.agents.virus.DanceVirus;
 import main.com.teamalfa.blindvirologists.agents.virus.ParalyzeVirus;
+import main.com.teamalfa.blindvirologists.agents.virus.Virus;
 import main.com.teamalfa.blindvirologists.city.fields.Field;
 import main.com.teamalfa.blindvirologists.city.fields.Laboratory;
 import main.com.teamalfa.blindvirologists.city.fields.SafeHouse;
@@ -18,12 +21,14 @@ import main.com.teamalfa.blindvirologists.virologist.backpack.ElementBank;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 public class AController{
 
     static private int callCount = 0;  // store call depth visualized with tabulators
     static private HashMap<Object, String> objectNameDict = new HashMap<>();  // store object names for printing
+    static private boolean showMethods = true;
 
     public static void registerObject(Object parent, Object object, String name) {
         if(parent == null)
@@ -47,7 +52,7 @@ public class AController{
         callCount--;
 
         // Void methods pass a null as parameter.
-        if(object != null) {
+        if(object != null && showMethods) {
             String msg = "";
             for(int i = 0; i < callCount; i++) msg += "\t";
             msg += "└→return ";
@@ -70,28 +75,30 @@ public class AController{
      * @param parameters
      * */
     public static void printCall(Object object, String method, Object[] parameters) {
-        String msg = "";
-        // add tabulators for depth
-        for(int i = 0; i < callCount; i++) msg += '\t';
+        if(showMethods) {
+            String msg = "";
+            // add tabulators for depth
+            for(int i = 0; i < callCount; i++) msg += '\t';
 
-        // print object name and method name and open a bracket
-        msg += objectNameDict.get(object) + "."  + method + "(";
+            // print object name and method name and open a bracket
+            msg += objectNameDict.get(object) + "."  + method + "(";
 
-        // print method parameters
-        if(parameters != null) {
-            for(int i = 0; i < parameters.length; i++) {
-                msg += objectNameDict.get(parameters[i]);
-                // if not last parameter use comma for separation
-                if(i != parameters.length - 1) msg += ", ";
+            // print method parameters
+            if(parameters != null) {
+                for(int i = 0; i < parameters.length; i++) {
+                    msg += objectNameDict.get(parameters[i]);
+                    // if not last parameter use comma for separation
+                    if(i != parameters.length - 1) msg += ", ";
+                }
             }
+
+            // close method with bracket
+            msg += ")";
+
+            // increase callCount
+            System.out.println(msg);
         }
-
-        // close method with bracket
-        msg += ")";
-
-        // increase callCount
         callCount++;
-        System.out.println(msg);
     }
 
     public void runTests() {
@@ -299,7 +306,25 @@ public class AController{
     }
 
     public void Test7(){
-        Virologist v1 = new Virologist(); objectNameDict.put(v1, "virologist"); v1.registerObjects();
+        // set up virologist and create virus
+        Virologist virologist = new Virologist(); objectNameDict.put(virologist, "virologist"); virologist.registerObjects();
+        ParalyzeCode pc = new ParalyzeCode(); objectNameDict.put(pc, "paralyzeCode");
+        virologist.getBackpack().createVirus(pc);
+
+
+        // set up enemy and inject vaccine
+        showMethods = false;
+        Virologist enemy = new Virologist(); objectNameDict.put(enemy, "enemy"); enemy.registerObjects();
+        Vaccine parVaccine = new Vaccine(pc); objectNameDict.put(parVaccine, "paralyzeVaccine");
+        enemy.protectedBy(parVaccine);
+
+        // apply virus
+        Agent toUse = (Agent) askMultiChoice("agent to use",virologist.getBackpack().getAgents());
+        showMethods = true;
+        virologist.use(toUse, enemy);
+
+        showMethods = true;
+
 
     }
     //todo
@@ -436,6 +461,11 @@ public class AController{
      * @return The chose option.
      */
     public static Object askMultiChoice(String optionType, ArrayList<Object> choices) {
+        if(choices.isEmpty()) {
+            System.out.println("There are no choices in "+ objectNameDict.get(choices));
+            return null;
+        }
+
         String question = "\nThe possible choices for " + optionType + " in " + objectNameDict.get(choices)+ " are:\n";
         for(int i = 0; i < choices.size(); i++) {
             question += "\t"+ i + ". " + objectNameDict.get(choices.get(i))+ "\n";

@@ -4,12 +4,10 @@ import main.com.teamalfa.blindvirologists.agents.Agent;
 import main.com.teamalfa.blindvirologists.agents.Vaccine;
 import main.com.teamalfa.blindvirologists.agents.genetic_code.AmnesiaCode;
 import main.com.teamalfa.blindvirologists.agents.genetic_code.DanceCode;
-import main.com.teamalfa.blindvirologists.agents.genetic_code.GeneticCode;
 import main.com.teamalfa.blindvirologists.agents.genetic_code.ParalyzeCode;
 import main.com.teamalfa.blindvirologists.agents.virus.AmnesiaVirus;
 import main.com.teamalfa.blindvirologists.agents.virus.DanceVirus;
 import main.com.teamalfa.blindvirologists.agents.virus.ParalyzeVirus;
-import main.com.teamalfa.blindvirologists.agents.virus.Virus;
 import main.com.teamalfa.blindvirologists.city.fields.Field;
 import main.com.teamalfa.blindvirologists.city.fields.Laboratory;
 import main.com.teamalfa.blindvirologists.city.fields.SafeHouse;
@@ -19,28 +17,22 @@ import main.com.teamalfa.blindvirologists.equipments.Cloak;
 import main.com.teamalfa.blindvirologists.equipments.active_equipments.Gloves;
 import main.com.teamalfa.blindvirologists.virologist.Virologist;
 import main.com.teamalfa.blindvirologists.virologist.backpack.ElementBank;
-import org.codehaus.groovy.runtime.dgmimpl.arrays.IntegerArrayGetAtMetaMethod;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 import java.util.Scanner;
 
 public class AController{
 
     static private int callCount = 0;  // store call depth visualized with tabulators
-    static private HashMap<Object, String> objectNameDict = new HashMap<>();  // store object names for printing
-    static private boolean showMethods = true;
+    static private final HashMap<Object, String> objectNameDict = new HashMap<>();  // store object names for printing
+    static private boolean showMethods = true;  // turn on/off method call printing
 
     public static void registerObject(Object parent, Object object, String name) {
         if(parent == null)
             objectNameDict.put(object, name);
         else
             objectNameDict.put(object, objectNameDict.get(parent)+"."+name);
-    }
-
-    public static int getCallCount() {
-        return callCount;
     }
 
     /**
@@ -55,12 +47,20 @@ public class AController{
 
         // Void methods pass a null as parameter.
         if(object != null && showMethods) {
-            String msg = "";
-            for(int i = 0; i < callCount; i++) msg += "\t";
-            msg += "└→return ";
-            if(object instanceof Boolean) msg += (Boolean) object;
-            else if(object instanceof String) msg += (String) object;
-            else msg += objectNameDict.get(object);
+            // String builder
+            StringBuilder msg = new StringBuilder();
+
+            // append tabs to visualize depth
+            msg.append("\t".repeat(Math.max(0, callCount)));
+            // append return sign
+            msg.append("└→return ");
+
+            // use object data instead of hashmap value
+            if(object instanceof Boolean || object instanceof String)
+                msg.append(object);
+            // use reference name from hashmap
+            else msg.append(objectNameDict.get(object));
+
             System.out.println(msg);
         }
 
@@ -78,12 +78,12 @@ public class AController{
      * */
     public static void printCall(Object object, String method, Object[] parameters) {
         if(showMethods) {
-            String msg = "";
+            StringBuilder msg = new StringBuilder();
             // add tabulators for depth
-            for(int i = 0; i < callCount; i++) msg += '\t';
+            msg.append("\t".repeat(Math.max(0, callCount)));
 
             // print object name and method name and open a bracket
-            msg += objectNameDict.get(object) + "."  + method + "(";
+            msg.append(objectNameDict.get(object)).append(".").append(method).append("(");
 
             // print method parameters
             if(parameters != null) {
@@ -91,19 +91,19 @@ public class AController{
                     Object curr_para = parameters[i];
 
                     if(curr_para instanceof Integer)
-                        msg += curr_para.toString();
+                        msg.append(curr_para);
                     else if(curr_para instanceof String)
-                        msg += curr_para;
+                        msg.append(curr_para);
                     else
-                        msg += objectNameDict.get(curr_para);
+                        msg.append(objectNameDict.get(curr_para));
 
                     // if not last parameter use comma for separation
-                    if(i != parameters.length - 1) msg += ", ";
+                    if(i != parameters.length - 1) msg.append(", ");
                 }
             }
 
             // close method with bracket
-            msg += ")";
+            msg.append(")");
 
             // increase callCount
             System.out.println(msg);
@@ -232,6 +232,7 @@ public class AController{
     }
 
     public void Test1(){
+        printHeader("1: Virologist searches in a laboratory that contains genetic code");
         // turn off method printing
         showMethods = false;
 
@@ -579,7 +580,7 @@ public class AController{
         }
         question += "answer (number): ";
         while(true) {
-            Integer answer;
+            int answer;
             try {
                 answer = Integer.parseInt(readInput(question));
             }catch (NumberFormatException ex) {
@@ -594,7 +595,7 @@ public class AController{
     public static Integer askNumberInput(String question) {
         question += "\n answer (number): ";
         while(true) {
-            Integer answer;
+            int answer;
             try {
                 answer = Integer.parseInt(readInput(question));
             } catch (NumberFormatException ex) {
@@ -608,5 +609,50 @@ public class AController{
         callCount = 0;
         objectNameDict.clear();
         readInput("\n Press enter to get back to menu . . . ");
+    }
+
+    private void printHeader(String msg) {
+        int width = msg.length() + 10;
+        String header = "";
+
+        // print top line
+        for(int i = 0; i < width; i++) {
+            header += '_';
+        }
+
+        // print sides
+        header += '\n';
+        for(int i = 0; i < width; i++) {
+            if(i == 0 || i == width - 1)
+                header += '|';
+            header += ' ';
+        }
+
+        // print sides with msg
+        header += '\n';
+        for(int i = 0; i < width; i++) {
+            if(i == 0 || i == width - 1)
+                header += '|';
+            if(i == 5)
+                header += msg;
+            if(i < 5 || i > width - 6)
+                header += ' ';
+        }
+
+        // print sides
+        header += '\n';
+        for(int i = 0; i < width; i++) {
+            if(i == 0 || i == width - 1)
+                header += '|';
+            header += ' ';
+        }
+
+        // print bottom line
+        header += '\n';
+        for(int i = 0; i < width; i++) {
+            header += '_';
+        }
+        header += '\n';
+        System.out.println(header);
     }
 }

@@ -134,6 +134,7 @@ public class Virologist {
     }
 
     public void addVirus(Virus virus) {
+        AController.printCall(this, "addVirus", new Object[] {virus});
         activeViruses.add(virus);
         sortViruses();
     }

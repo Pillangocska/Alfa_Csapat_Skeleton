@@ -13,9 +13,16 @@ abstract public class Virus extends Agent {
     public void apply(Virologist target) {
         AController.printCall(this, "apply", new Object[]{target});
         if (target.infectedBy(this)) {
-            this.target = target;
+            //this.target = target;
+            this.setTarget(target);
+            target.addVirus(this);
         }
         AController.printReturn(null);
+    }
+
+    public void setTarget(Virologist v){
+        AController.printCall(this, "setTarget", new Object[] {v});
+        this.target = v;
     }
 
     public boolean affectUsage() {

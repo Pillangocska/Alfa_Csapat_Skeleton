@@ -3,6 +3,7 @@ package main.com.teamalfa.blindvirologists;
 import main.com.teamalfa.blindvirologists.agents.Agent;
 import main.com.teamalfa.blindvirologists.agents.Vaccine;
 import main.com.teamalfa.blindvirologists.agents.genetic_code.AmnesiaCode;
+import main.com.teamalfa.blindvirologists.agents.genetic_code.DanceCode;
 import main.com.teamalfa.blindvirologists.agents.genetic_code.GeneticCode;
 import main.com.teamalfa.blindvirologists.agents.genetic_code.ParalyzeCode;
 import main.com.teamalfa.blindvirologists.agents.virus.AmnesiaVirus;
@@ -416,8 +417,32 @@ public class AController{
         showMethods = true;
         virologist.use(toUse, enemy);
     }
-    //todo
+
     public void Test9(){
+        // turn of method printing
+        showMethods = false;
+
+        // set up virologist and create virus
+        Virologist virologist = new Virologist(); objectNameDict.put(virologist, "virologist"); virologist.registerObjects();
+        DanceCode ac = new DanceCode(); objectNameDict.put(ac, "danceCode");
+
+        //start virus create test
+        showMethods = true;
+        virologist.getBackpack().createVirus(ac);
+
+
+        // set up enemy and equip gloves
+        showMethods = false;
+        Virologist enemy = new Virologist(); objectNameDict.put(enemy, "enemy"); enemy.registerObjects();
+        Gloves gloves = new Gloves(); objectNameDict.put(gloves, "gloves");
+        enemy.addWorn(gloves);
+
+        // apply virus
+        Agent toUse = (Agent) askMultiChoice("agent to use",virologist.getBackpack().getAgents());
+
+        // start use test
+        showMethods = true;
+        virologist.use(toUse, enemy);
     }
 
     public void Test10(){

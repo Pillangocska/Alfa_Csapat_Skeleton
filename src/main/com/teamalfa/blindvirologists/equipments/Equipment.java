@@ -1,5 +1,6 @@
 package main.com.teamalfa.blindvirologists.equipments;
 
+import main.com.teamalfa.blindvirologists.AController;
 import main.com.teamalfa.blindvirologists.virologist.Virologist;
 
 abstract public class Equipment {
@@ -14,6 +15,7 @@ abstract public class Equipment {
     }
 
     public boolean protect() {
-        return false;
+        AController.printCall(this, "protect", null);
+        return (Boolean) AController.printReturn(false);
     }
 }

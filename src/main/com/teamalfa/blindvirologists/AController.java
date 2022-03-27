@@ -18,7 +18,7 @@ import main.com.teamalfa.blindvirologists.equipments.Cloak;
 import main.com.teamalfa.blindvirologists.equipments.active_equipments.Gloves;
 import main.com.teamalfa.blindvirologists.virologist.Virologist;
 import main.com.teamalfa.blindvirologists.virologist.backpack.ElementBank;
-import org.codehaus.groovy.runtime.dgmimpl.arrays.IntegerArrayGetAtMetaMethod;
+import main.com.teamalfa.blindvirologists.virologist.backpack.pockets.EquipmentPocket;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -442,7 +442,10 @@ public class AController{
         Bag bag = new Bag(2000); objectNameDict.put(bag, "bag");
         bag.setVirologist(v1);
 
-        v1.getBackpack().getEquipmentPocket().toggle(bag);
+        showMethods = false;
+        EquipmentPocket tmp = v1.getBackpack().getEquipmentPocket();
+        showMethods = true;
+        tmp.toggle(bag);
     }
 
     public void Test13(){
@@ -450,42 +453,65 @@ public class AController{
         SafeHouse sh1 = new SafeHouse(); objectNameDict.put(sh1, "safeHouse");
         v1.setField(sh1);
         v1.registerObjects();
-        Cloak cloak = new Cloak();
+        Cloak cloak = new Cloak(); objectNameDict.put(cloak, "cloak");
         cloak.setVirologist(v1);
 
-        v1.getBackpack().getEquipmentPocket().toggle(cloak);
+        showMethods = false;
+        EquipmentPocket tmp = v1.getBackpack().getEquipmentPocket();
+        showMethods = true;
+        tmp.toggle(cloak);
     }
 
     public void Test14(){
-        Virologist v1 = new Virologist();
-        SafeHouse sh1 = new SafeHouse();
+        Virologist v1 = new Virologist(); objectNameDict.put(v1, "virologist");
+        SafeHouse sh1 = new SafeHouse(); objectNameDict.put(sh1, "safeHouse");
         v1.setField(sh1);
-        Gloves glove = new Gloves();
-        v1.getBackpack().getEquipmentPocket().toggle(glove);
+        v1.registerObjects();
+        Gloves glove = new Gloves(); objectNameDict.put(glove, "glove");
+        glove.setVirologist(v1);
+
+        showMethods = false;
+        EquipmentPocket tmp = v1.getBackpack().getEquipmentPocket();
+        showMethods = true;
+        tmp.toggle(glove);
     }
 
     public void Test15(){
-        Virologist v1 = new Virologist();
-        Field field = new Field();
+        Virologist v1 = new Virologist(); objectNameDict.put(v1, "virologist");
+        Field field = new Field(); objectNameDict.put(field, "field");
         v1.setField(field);
-        Bag bag = new Bag(2000);
-        v1.getBackpack().getEquipmentPocket().toggle(bag);
+        v1.registerObjects();
+        Bag bag = new Bag(2000); objectNameDict.put(bag, "bag");
+
+        showMethods = false;
+        EquipmentPocket tmp = v1.getBackpack().getEquipmentPocket();
+        showMethods = true;
+        tmp.toggle(bag);
     }
 
     public void Test16(){
-        Virologist v1 = new Virologist();
-        SafeHouse sh1 = new SafeHouse();
+        Virologist v1 = new Virologist(); objectNameDict.put(v1, "virologist");
+        SafeHouse sh1 = new SafeHouse(); objectNameDict.put(sh1, "safeHouse");
         v1.setField(sh1);
-        Cloak cloak = new Cloak();
-        v1.getBackpack().getEquipmentPocket().toss(cloak);
+        v1.registerObjects();
+        Cloak cloak = new Cloak(); objectNameDict.put(cloak, "cloak");
+        cloak.setVirologist(v1);
+        showMethods = false;
+        EquipmentPocket tmp = v1.getBackpack().getEquipmentPocket();
+        showMethods = true;
+        tmp.toss(cloak);
     }
 
     public void Test17(){
-        Virologist v1 = new Virologist();
-        Field field = new Field();
+        Virologist v1 = new Virologist(); objectNameDict.put(v1, "virologist");
+        Field field = new Field(); objectNameDict.put(field, "field");
         v1.setField(field);
-        Cloak cloak = new Cloak();
-        v1.getBackpack().getEquipmentPocket().toss(cloak);
+        v1.registerObjects();;
+        Cloak cloak = new Cloak(); objectNameDict.put(cloak, "cloak");
+        showMethods = false;
+        EquipmentPocket tmp = v1.getBackpack().getEquipmentPocket();
+        showMethods = true;
+        tmp.toss(cloak);
     }
 
     public void Test18(){

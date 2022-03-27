@@ -225,8 +225,12 @@ public class Virologist {
      * @param activeEquipment The activeequipment the virologist added.
      */
     public void addActive(ActiveEquipment activeEquipment) {
+        AController.printCall(this, "addActive", new Object[]{activeEquipment});
+
         if(wornEquipment.size() < 3)
             activeEquipments.add(activeEquipment);
+
+        AController.printReturn(null);
     }
 
     /**
@@ -235,7 +239,11 @@ public class Virologist {
      * @param activeEquipment The activeequipment the virologist removed.
      */
     public void removeActive(ActiveEquipment activeEquipment) {
+        AController.printCall(this, "removeActive", new Object[]{activeEquipment});
+
         activeEquipments.remove(activeEquipment);
+
+        AController.printReturn(null);
     }
 
     /**

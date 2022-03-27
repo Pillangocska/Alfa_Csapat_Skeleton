@@ -17,7 +17,8 @@ public class ElementBank {
     }
 
     public void increaseMaxSize(int extraSize) {
-        AController.printCall(this, "increaseMaxSize", new Object[]{extraSize});
+        String tmp = "extraSize";
+        AController.printCall(this, "increaseMaxSize", new Object[]{tmp});
 
         aminoAcidMaxSize += extraSize;
         nucleotideMaxSize += extraSize;
@@ -27,7 +28,8 @@ public class ElementBank {
 
 
     public void decreaseMaxSize(int extraSize) {
-        AController.printCall(this, "decreaseMaxSize", new Object[]{extraSize});
+        String tmp = "extraSize";
+        AController.printCall(this, "decreaseMaxSize", new Object[]{tmp});
 
         aminoAcidMaxSize -= extraSize;
         nucleotideMaxSize -= extraSize;

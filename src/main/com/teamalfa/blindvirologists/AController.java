@@ -232,7 +232,7 @@ public class AController{
     }
 
     public void Test1(){
-        // turn of method printing
+        // turn off method printing
         showMethods = false;
 
         // create objects and add their reference names to the hashmap
@@ -250,7 +250,7 @@ public class AController{
     }
 
     public void Test2(){
-        // turn of method printing
+        // turn off method printing
         showMethods = false;
 
         // create objects and add their reference names to the hashmap, register nested objects
@@ -274,7 +274,7 @@ public class AController{
     }
 
     public void Test3(){
-        // turn of method printing
+        // turn off method printing
         showMethods = false;
 
         // create objects and add their reference names to the hashmap, register nested objects
@@ -295,7 +295,7 @@ public class AController{
     }
 
     public void Test4(){
-        // turn of method printing
+        // turn off method printing
         showMethods = false;
 
         // create Virologist and DanceVirus and add them to hashmap
@@ -325,7 +325,7 @@ public class AController{
     }
 
     public void Test5(){
-        // turn of method printing
+        // turn off method printing
         showMethods = false;
 
         // create virologist and paralyzeVirus, add their reference names to the hashmap
@@ -345,7 +345,7 @@ public class AController{
     }
 
     public void Test6(){
-        // turn of method printing
+        // turn off method printing
         showMethods = false;
 
         // create virologist and amnesiaVirus, register their reference names to the hashmap
@@ -365,7 +365,7 @@ public class AController{
     }
 
     public void Test7(){
-        // turn of method printing
+        // turn off method printing
         showMethods = false;
 
         // set up virologist and create virus
@@ -392,7 +392,7 @@ public class AController{
     }
 
     public void Test8(){
-        // turn of method printing
+        // turn off method printing
         showMethods = false;
 
         // set up virologist and create virus
@@ -419,7 +419,7 @@ public class AController{
     }
 
     public void Test9(){
-        // turn of method printing
+        // turn off method printing
         showMethods = false;
 
         // set up virologist and create virus
@@ -446,8 +446,14 @@ public class AController{
     }
 
     public void Test10(){
-        Virologist v1 = new Virologist();
-        ParalyzeCode paralyzeCode = new ParalyzeCode();
+        // turn of
+        showMethods = false;
+
+        Virologist v1 = new Virologist(); objectNameDict.put(v1, "virologist"); v1.registerObjects();
+        ParalyzeCode paralyzeCode = new ParalyzeCode(); objectNameDict.put(paralyzeCode, "paralyzeCode");
+
+        //start test
+        showMethods = true;
         v1.getBackpack().createVirus(paralyzeCode);
     }
 

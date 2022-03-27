@@ -198,7 +198,7 @@ public class AController{
                 System.exit(0);
                 break;
             }
-            backToMenu();
+            backToMenuAndReset();
         }
     }
 
@@ -227,20 +227,26 @@ public class AController{
     }
 
     public void Test4(){
+        // create Virologist and DanceVirus and add them to hashmap
         Virologist v1 = new Virologist(); objectNameDict.put(v1, "v1");
         DanceVirus dv = new DanceVirus(); objectNameDict.put(dv, "danceVirus");
         v1.addVirus(dv);
+
+        // create fields and add them to hashmap
         Field current = new Field(); objectNameDict.put(current, "current");
         Field destination = new Field(); objectNameDict.put(destination, "destination");
+
+        // create neighbours for current field and add them to hashmap
         ArrayList<Field> neighbours = new ArrayList<>();
         for(int i = 0; i < 4; i++) {
             Field field = new Field(); objectNameDict.put(field, "alteredDestination");
             neighbours.add(field);
         }
         neighbours.add(destination);
-        current.setNeighbours(neighbours);
+        current.setNeighbours(neighbours); objectNameDict.put(neighbours, "neighbours");
         v1.setField(current);
-        callCount = 0;
+
+        // start move test
         v1.move(destination);
     }
 
@@ -404,7 +410,9 @@ public class AController{
         }
     }
 
-    private void backToMenu() {
+    private void backToMenuAndReset() {
+        callCount = 0;
+        objectNameDict.clear();
         readInput("\n Press any key to get back to menu . . . ");
     }
 }

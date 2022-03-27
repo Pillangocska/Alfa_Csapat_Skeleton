@@ -70,7 +70,10 @@ public class Virologist {
     }
 
     public void use(Agent a, Virologist v){
-        a.apply(v);
+        AController.printCall(this, "use", new Object[] {a, v});
+        if (!checkUsageAffect())
+            a.apply(v);
+        AController.printReturn(null);
     }
 
     public void learn(GeneticCode gc) {
@@ -93,7 +96,9 @@ public class Virologist {
 
     public boolean infectedBy(Virus virus) {
         // Temporary implementation.
+        AController.printCall(this, "infectedBy", new Object[] {virus});
         activeViruses.add(virus);
+        AController.printReturn("true");
         return true;
     }
 
@@ -118,9 +123,14 @@ public class Virologist {
     //todo searchForVirologist
 
     private boolean checkUsageAffect() {
-        if(activeViruses.isEmpty())
+        AController.printCall(this, "checkUsageAffect", null);
+        if(activeViruses.isEmpty()){
+            AController.printReturn(false);
             return false;
-        else return activeViruses.get(0).affectUsage();
+        }
+
+        AController.printReturn(activeViruses.get(0).affectUsage());
+        return activeViruses.get(0).affectUsage();
     }
 
     public void addVirus(Virus virus) {

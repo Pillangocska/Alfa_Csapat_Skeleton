@@ -30,13 +30,13 @@ public class Field {
     public void accept(Virologist virologist){
         AController.printCall(this, "accept", new Object[]{virologist});
         virologists.add(virologist);
-        AController.decCallCount();
+        AController.printReturn(null);
     }
 
     public void remove(Virologist virologist){
         AController.printCall(this, "remove", new Object[]{virologist});
         virologists.remove(virologist);
-        AController.decCallCount();
+        AController.printReturn(null);
     }
 
     //Gives back the virologists on the field

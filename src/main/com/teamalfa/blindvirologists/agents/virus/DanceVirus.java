@@ -8,19 +8,14 @@ import java.util.ArrayList;
 public class DanceVirus extends Virus {
 
     private Field pickRandom(ArrayList<Field> neighbours) {
-        AController.printCall(this, "pickRandom", null); AController.decCallCount();
-        return neighbours.get(AController.askMultiChoice(neighbours.size(), "field"));
+        AController.printCall(this, "pickRandom", null);
+        return (Field) AController.printReturn(neighbours.get(AController.askMultiChoice(neighbours.size(), "field")));
     }
 
     @Override
     public Field affectMovement(Field current) {
         AController.printCall(this, "affectMovement", new Object[]{current});
 
-
-        Field modified = pickRandom(current.getNeighbours());
-
-
-        AController.decCallCount();
-        return modified;
+        return (Field) AController.printReturn(pickRandom(current.getNeighbours()));
     }
 }

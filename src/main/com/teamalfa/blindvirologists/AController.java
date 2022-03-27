@@ -20,30 +20,64 @@ import java.util.Scanner;
 
 public class AController{
 
-    static private int callCount = 0;
-    static private HashMap<Object, String> objectNameDict = new HashMap<>();
+    static private int callCount = 0;  // store call depth visualized with tabulators
+    static private HashMap<Object, String> objectNameDict = new HashMap<>();  // store object names for printing
 
     public static int getCallCount() {
         return callCount;
     }
 
-    public static void decCallCount() {
+    /**
+     * This method prints the return object to the console.
+     * You must call this method at the end of every method.
+     * @param object
+     * @return Object
+     * */
+    public static Object printReturn(Object object) {
+        // Decrease callCount to reset depth.
         callCount--;
+
+        // Void methods pass a null as parameter.
+        if(object != null) {
+            String msg = "";
+            for(int i = 0; i < callCount; i++) msg += "\t";
+            msg += "return " + objectNameDict.get(object);
+            System.out.println(msg);
+        }
+
+        // Returning the object, so it can be wrapped in the return line but a cast is needed.
+        // Example usage: return (Field) AController.printReturn(field)
+        return object;
     }
 
+    /**
+     * This method prints the object and the called method to the console.
+     * You must call this method and the beginning of every method.
+     * @param object
+     * @param method
+     * @param parameters
+     * */
     public static void printCall(Object object, String method, Object[] parameters) {
-        ArrayList<String> args = new ArrayList<>();
-        if(parameters != null)
-            for(Object obj : parameters) args.add(objectNameDict.get(obj));
-
         String msg = "";
+        // add tabulators for depth
         for(int i = 0; i < callCount; i++) msg += '\t';
+
+        // print object name and method name and open a bracket
         msg += objectNameDict.get(object) + "."  + method + "(";
-        for(int i = 0; i < args.size(); i++) {
-            msg += args.get(i);
-            if(i != args.size() - 1) msg += ", ";
+
+        // print method parameters
+        if(parameters != null) {
+            for(int i = 0; i < parameters.length; i++) {
+                msg += objectNameDict.get(parameters[i]);
+                // if not last parameter use comma for separation
+                if(i != parameters.length - 1) msg += ", ";
+            }
         }
+
+        // close method with bracket
         msg += ")";
+
+        // increase callCount
         callCount++;
         System.out.println(msg);
     }
@@ -164,6 +198,7 @@ public class AController{
                 System.exit(0);
                 break;
             }
+            backToMenu();
         }
     }
 
@@ -202,6 +237,7 @@ public class AController{
             Field field = new Field(); objectNameDict.put(field, "alteredDestination");
             neighbours.add(field);
         }
+        neighbours.add(destination);
         current.setNeighbours(neighbours);
         v1.setField(current);
         callCount = 0;
@@ -340,7 +376,7 @@ public class AController{
 
     public static boolean askYesOrNo(String msg) {
         // Returns true if user answered yes.
-        String question = msg + " (y/n)";
+        String question = "\n" +  msg + " (y/n)";
         while(true) {
             switch(readInput(question)) {
                 case "y": return true;
@@ -350,7 +386,7 @@ public class AController{
     }
 
     public static Integer askMultiChoice(Integer count, String optionType) {
-        String question = "The possible choices for " + optionType + " are:\n";
+        String question = "\nThe possible choices for " + optionType + " are:\n";
         for(int i = 0; i < count; i++) {
             question += "\t" + i + ". " + optionType + "\n";
         }
@@ -366,5 +402,9 @@ public class AController{
                 return answer;
             }
         }
+    }
+
+    private void backToMenu() {
+        readInput("\n Press any key to get back to menu . . . ");
     }
 }

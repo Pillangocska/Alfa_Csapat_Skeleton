@@ -50,7 +50,7 @@ public class Virologist {
         destination.accept(this);
         field = destination;
 
-        AController.decCallCount();
+        AController.printReturn(null);
     }
 
     public void use(ActiveEquipment a, Virologist v) {

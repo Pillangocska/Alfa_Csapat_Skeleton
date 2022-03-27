@@ -44,12 +44,10 @@ public class ElementBank {
     public boolean remove(ElementBank added) {
         AController.printCall(this, "remove", new Object[]{added});
 
-        Boolean ret = true;
-        if(aminoAcid - added.aminoAcid < 0 || nucleotide - added.nucleotide < 0) {
-            ret = false;
+        Boolean ret = false;
+        if(AController.askYesOrNo("Is there enough elements in the bank?")) {
+            ret = true;
         }
-        aminoAcid -= added.aminoAcid;
-        nucleotide -= added.nucleotide;
         return (Boolean) AController.printReturn(ret);
     }
 

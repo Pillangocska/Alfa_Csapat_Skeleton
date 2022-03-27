@@ -17,7 +17,7 @@ import java.util.Collections;
 public class Virologist {
     private ArrayList<GeneticCode> protectionBank;
     private ArrayList<Virus> activeViruses;
-    private ArrayList<Equipment> wornEquipment = new ArrayList<>();
+    private ArrayList<Equipment> wornEquipments = new ArrayList<>();
     private ArrayList<ActiveEquipment> activeEquipments = new ArrayList<>();
     private Backpack backpack;
     private Field field;
@@ -70,7 +70,11 @@ public class Virologist {
     }
 
     public void use(Agent a, Virologist v){
-        a.apply(v);
+        AController.printCall(this, "use", new Object[]{a, v});
+        if(a != null) {
+            a.apply(v);
+        }
+        AController.printReturn(null);
     }
 
     public void learn(GeneticCode gc) {
@@ -92,9 +96,24 @@ public class Virologist {
     }
 
     public boolean infectedBy(Virus virus) {
-        // Temporary implementation.
+        // print method call
+        AController.printCall(this, "infectedBy", new Object[]{virus});
+
+        Boolean ret = true;
+
+        // check if protected by any vaccine
+        if(protectionBank.contains(virus.getGeneticCode())) {
+            ret = false;
+        }else {
+            // check if protected by any equipment
+            for(Equipment equipment : wornEquipments)
+                if(equipment.protect())
+                    ret = false;
+        }
         activeViruses.add(virus);
-        return true;
+
+        // print return value to console
+        return (Boolean) AController.printReturn(ret);
     }
 
     public void protectedBy(Vaccine vaccine) {
@@ -134,16 +153,16 @@ public class Virologist {
     }
 
     public void removeWorn(Equipment equipment) {
-        wornEquipment.remove(equipment);
+        wornEquipments.remove(equipment);
     }
 
     public void addWorn(Equipment equipment) {
-        if(wornEquipment.size() < 3)
-            wornEquipment.add(equipment);
+        if(wornEquipments.size() < 3)
+            wornEquipments.add(equipment);
     }
 
     public void addActive(ActiveEquipment activeEquipment) {
-        if(wornEquipment.size() < 3)
+        if(wornEquipments.size() < 3)
             activeEquipments.add(activeEquipment);
     }
 

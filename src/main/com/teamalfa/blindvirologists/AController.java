@@ -413,6 +413,6 @@ public class AController{
     private void backToMenuAndReset() {
         callCount = 0;
         objectNameDict.clear();
-        readInput("\n Press any key to get back to menu . . . ");
+        readInput("\n Press enter to get back to menu . . . ");
     }
 }

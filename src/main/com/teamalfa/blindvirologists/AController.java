@@ -18,6 +18,7 @@ import main.com.teamalfa.blindvirologists.equipments.Cloak;
 import main.com.teamalfa.blindvirologists.equipments.active_equipments.Gloves;
 import main.com.teamalfa.blindvirologists.virologist.Virologist;
 import main.com.teamalfa.blindvirologists.virologist.backpack.ElementBank;
+import org.codehaus.groovy.runtime.dgmimpl.arrays.IntegerArrayGetAtMetaMethod;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -86,7 +87,15 @@ public class AController{
             // print method parameters
             if(parameters != null) {
                 for(int i = 0; i < parameters.length; i++) {
-                    msg += objectNameDict.get(parameters[i]);
+                    Object curr_para = parameters[i];
+
+                    if(curr_para instanceof Integer)
+                        msg += curr_para.toString();
+                    else if(curr_para instanceof String)
+                        msg += curr_para;
+                    else
+                        msg += objectNameDict.get(curr_para);
+
                     // if not last parameter use comma for separation
                     if(i != parameters.length - 1) msg += ", ";
                 }
@@ -222,40 +231,72 @@ public class AController{
     }
 
     public void Test1(){
+        // turn of method printing
+        showMethods = false;
+
+        // create objects and add their reference names to the hashmap
         Virologist v1 = new Virologist(); objectNameDict.put(v1, "virologist"); v1.registerObjects();
         Laboratory l1 = new Laboratory(); objectNameDict.put(l1, "laboratory");
         AmnesiaCode ac = new AmnesiaCode(); objectNameDict.put(ac, "amnesiaCode");
+
+        // set relations
         l1.setGeneticCode(ac);
         v1.setField(l1);
+
+        // start test
+        showMethods = true;
         v1.search();
     }
 
     public void Test2(){
+        // turn of method printing
+        showMethods = false;
+
+        // create objects and add their reference names to the hashmap, register nested objects
         Virologist v1 = new Virologist(); objectNameDict.put(v1, "virologist"); v1.registerObjects();
         StoreHouse s1 = new StoreHouse(); objectNameDict.put(s1, "storeHouse");
+
+        // ask tester about element quantities
         ElementBank elements = new ElementBank(
                 askNumberInput("How many amino acids are on the field?"),
                 askNumberInput("How many nucleotides are on the field?")
         );
         objectNameDict.put(elements, "elements"+elements.getAminoAcid()+"_"+elements.getNucleotide());
+
+        // set relations
         s1.setElements(elements);
         v1.setField(s1);
+
+        // start test
+        showMethods = true;
         v1.search();
     }
 
     public void Test3(){
+        // turn of method printing
+        showMethods = false;
+
+        // create objects and add their reference names to the hashmap, register nested objects
         Virologist v1 = new Virologist(); objectNameDict.put(v1, "virologist"); v1.registerObjects();
         SafeHouse sh1 = new SafeHouse(); objectNameDict.put(sh1, "safeHouse");
         Cloak cloak = new Cloak(); objectNameDict.put(cloak, "cloak");
+
+        // set relations
         sh1.add(cloak);
         Field current = new Field(); objectNameDict.put(current, "current");
         current.setNeighbour(sh1);
         v1.setField(current);
+
+        // start test
+        showMethods=true;
         v1.move(sh1);
         v1.search();
     }
 
     public void Test4(){
+        // turn of method printing
+        showMethods = false;
+
         // create Virologist and DanceVirus and add them to hashmap
         Virologist v1 = new Virologist(); objectNameDict.put(v1, "v1");
         DanceVirus dv = new DanceVirus(); objectNameDict.put(dv, "danceVirus");
@@ -271,44 +312,67 @@ public class AController{
             Field field = new Field(); objectNameDict.put(field, "alteredDestination"+i);
             neighbours.add(field);
         }
+
+        // set relations
         neighbours.add(destination);
         current.setNeighbours(neighbours); objectNameDict.put(neighbours, "neighbours");
         v1.setField(current);
 
         // start move test
+        showMethods = true;
         v1.move(destination);
     }
 
     public void Test5(){
+        // turn of method printing
+        showMethods = false;
+
+        // create virologist and paralyzeVirus, add their reference names to the hashmap
         Virologist v1 = new Virologist(); objectNameDict.put(v1, "virologist");
         ParalyzeVirus pv = new ParalyzeVirus(); objectNameDict.put(pv, "paralyzeVirus");
         v1.addVirus(pv);
 
+        // create fields, and set relations
         Field current = new Field(); objectNameDict.put(current, "current");
         Field destination = new Field(); objectNameDict.put(destination, "destination");
         current.setNeighbour(destination);
         v1.setField(current);
 
+        // start test
+        showMethods=true;
         v1.move(destination);
     }
 
     public void Test6(){
+        // turn of method printing
+        showMethods = false;
+
+        // create virologist and amnesiaVirus, register their reference names to the hashmap
         Virologist v1 = new Virologist(); objectNameDict.put(v1, "virologist");
         AmnesiaVirus av = new AmnesiaVirus(); objectNameDict.put(av, "amnesiaVirus");
         v1.addVirus(av);
 
+        // create fields and set relations
         Field current = new Field(); objectNameDict.put(current, "current");
         Field destination = new Field(); objectNameDict.put(destination, "destination");
         current.setNeighbour(destination);
         v1.setField(current);
 
+        // start test
+        showMethods=true;
         v1.move(destination);
     }
 
     public void Test7(){
+        // turn of method printing
+        showMethods = false;
+
         // set up virologist and create virus
         Virologist virologist = new Virologist(); objectNameDict.put(virologist, "virologist"); virologist.registerObjects();
         ParalyzeCode pc = new ParalyzeCode(); objectNameDict.put(pc, "paralyzeCode");
+
+        //start virus create test
+        showMethods = true;
         virologist.getBackpack().createVirus(pc);
 
 
@@ -320,15 +384,37 @@ public class AController{
 
         // apply virus
         Agent toUse = (Agent) askMultiChoice("agent to use",virologist.getBackpack().getAgents());
+
+        // start use test
         showMethods = true;
         virologist.use(toUse, enemy);
-
-        showMethods = true;
-
-
     }
-    //todo
+
     public void Test8(){
+        // turn of method printing
+        showMethods = false;
+
+        // set up virologist and create virus
+        Virologist virologist = new Virologist(); objectNameDict.put(virologist, "virologist"); virologist.registerObjects();
+        AmnesiaCode ac = new AmnesiaCode(); objectNameDict.put(ac, "amnesiaCode");
+
+        //start virus create test
+        showMethods = true;
+        virologist.getBackpack().createVirus(ac);
+
+
+        // set up enemy and equip cloak
+        showMethods = false;
+        Virologist enemy = new Virologist(); objectNameDict.put(enemy, "enemy"); enemy.registerObjects();
+        Cloak cloak= new Cloak(); objectNameDict.put(cloak, "cloak");
+        enemy.addWorn(cloak);
+
+        // apply virus
+        Agent toUse = (Agent) askMultiChoice("agent to use",virologist.getBackpack().getAgents());
+
+        // start use test
+        showMethods = true;
+        virologist.use(toUse, enemy);
     }
     //todo
     public void Test9(){

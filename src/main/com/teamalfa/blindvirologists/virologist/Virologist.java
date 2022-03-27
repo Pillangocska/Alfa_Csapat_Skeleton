@@ -65,7 +65,7 @@ public class Virologist {
      * @param destination the field the virologist would like to step onto.
      */
     public void move(Field destination) {
-        AController.printCall(this, "move", new Object[]{destination});
+        AController.printCall(this, "move", new Object[]{destination, 4});
 
         Field modified = null;
 

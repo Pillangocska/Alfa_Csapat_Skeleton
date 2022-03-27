@@ -17,7 +17,7 @@ import java.util.Collections;
 public class Virologist {
     private ArrayList<GeneticCode> protectionBank;
     private ArrayList<Virus> activeViruses;
-    private ArrayList<Equipment> wornEquipments = new ArrayList<>();
+    private ArrayList<Equipment> wornEquipment = new ArrayList<>();
     private ArrayList<ActiveEquipment> activeEquipments = new ArrayList<>();
     private Backpack backpack;
     private Field field;
@@ -70,10 +70,9 @@ public class Virologist {
     }
 
     public void use(Agent a, Virologist v){
-        AController.printCall(this, "use", new Object[]{a, v});
-        if(a != null) {
+        AController.printCall(this, "use", new Object[] {a, v});
+        if (!checkUsageAffect())
             a.apply(v);
-        }
         AController.printReturn(null);
     }
 
@@ -96,24 +95,11 @@ public class Virologist {
     }
 
     public boolean infectedBy(Virus virus) {
-        // print method call
-        AController.printCall(this, "infectedBy", new Object[]{virus});
-
-        Boolean ret = true;
-
-        // check if protected by any vaccine
-        if(protectionBank.contains(virus.getGeneticCode())) {
-            ret = false;
-        }else {
-            // check if protected by any equipment
-            for(Equipment equipment : wornEquipments)
-                if(equipment.protect())
-                    ret = false;
-        }
+        // Temporary implementation.
+        AController.printCall(this, "infectedBy", new Object[] {virus});
         activeViruses.add(virus);
-
-        // print return value to console
-        return (Boolean) AController.printReturn(ret);
+        AController.printReturn("true");
+        return true;
     }
 
     public void protectedBy(Vaccine vaccine) {
@@ -137,9 +123,14 @@ public class Virologist {
     //todo searchForVirologist
 
     private boolean checkUsageAffect() {
-        if(activeViruses.isEmpty())
+        AController.printCall(this, "checkUsageAffect", null);
+        if(activeViruses.isEmpty()){
+            AController.printReturn(false);
             return false;
-        else return activeViruses.get(0).affectUsage();
+        }
+
+        AController.printReturn(activeViruses.get(0).affectUsage());
+        return activeViruses.get(0).affectUsage();
     }
 
     public void addVirus(Virus virus) {
@@ -153,16 +144,16 @@ public class Virologist {
     }
 
     public void removeWorn(Equipment equipment) {
-        wornEquipments.remove(equipment);
+        wornEquipment.remove(equipment);
     }
 
     public void addWorn(Equipment equipment) {
-        if(wornEquipments.size() < 3)
-            wornEquipments.add(equipment);
+        if(wornEquipment.size() < 3)
+            wornEquipment.add(equipment);
     }
 
     public void addActive(ActiveEquipment activeEquipment) {
-        if(wornEquipments.size() < 3)
+        if(wornEquipment.size() < 3)
             activeEquipments.add(activeEquipment);
     }
 

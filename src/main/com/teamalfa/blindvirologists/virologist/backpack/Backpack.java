@@ -16,22 +16,22 @@ public class Backpack {
     private Virologist virologist;
 
     public Backpack(Virologist virologist) {
-        equipmentPocket = new EquipmentPocket();
-        agentPocket = new AgentPocket();
-        elementBank = new ElementBank();
-        geneticCodePocket = new GeneticCodePocket();
+        equipmentPocket = new EquipmentPocket(this);
+        agentPocket = new AgentPocket(this);
+        elementBank = new ElementBank(0,0);
+        geneticCodePocket = new GeneticCodePocket(this);
         this.virologist = virologist;
     }
 
     public void add(Equipment equipment) {
-        if(equipmentPocket.add(equipment)){
+        if(equipmentPocket.getEquipmentHolder().add(equipment)){
             SafeHouse safeHouse = (SafeHouse) virologist.getField();
             safeHouse.remove(equipment);
-        };
+        }
     }
 
     public void add(GeneticCode geneticCode) {
-        geneticCodePocket.add(geneticCode);
+        geneticCodePocket.getGeneticCodes().add(geneticCode);
     }
 
     public void createVirus(GeneticCode geneticCode) {
@@ -45,5 +45,17 @@ public class Backpack {
 
     public Virologist getVirologist() {
         return virologist;
+    }
+
+    public EquipmentPocket getEquipmentPocket(){
+        return equipmentPocket;
+    }
+
+    public void deleteAllGeneticCodes() {
+        geneticCodePocket.deleteAll();
+    }
+
+    public ElementBank getElementBank() {
+        return elementBank;
     }
 }

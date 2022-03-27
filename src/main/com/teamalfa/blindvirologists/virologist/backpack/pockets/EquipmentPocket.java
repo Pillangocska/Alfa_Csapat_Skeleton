@@ -1,66 +1,81 @@
 package main.com.teamalfa.blindvirologists.virologist.backpack.pockets;
-
-import main.com.teamalfa.blindvirologists.GodController;
 import main.com.teamalfa.blindvirologists.city.fields.Field;
-import main.com.teamalfa.blindvirologists.city.fields.SafeHouse;
 import main.com.teamalfa.blindvirologists.equipments.Equipment;
 import main.com.teamalfa.blindvirologists.virologist.Virologist;
 import main.com.teamalfa.blindvirologists.virologist.backpack.Backpack;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class EquipmentPocket extends Pocket{
 
     private Backpack backpack;
     private ArrayList<Equipment> equipmentHolder = new ArrayList<>();
     private ArrayList<Equipment> wornEquipments= new ArrayList<>();
+    //private int wornSize;
 
-    public Backpack getBackpack() { return backpack; }
+    public EquipmentPocket(Backpack b){
+        backpack = b;
+        //wornSize = 3;
+        maxSize = 5;
+    }
 
-    public void setBackpack(Backpack b) { backpack = b; }
+    public Backpack getBackpack() {
+        return backpack;
+    }
 
-    public ArrayList<Equipment> getEquipmentHolder() { return equipmentHolder; }
+    public void setBackpack(Backpack b) {
+        backpack = b;
+    }
 
-    public void setEquipEquipmentHolder(ArrayList<Equipment> e) { equipmentHolder = e; }
+    public ArrayList<Equipment> getEquipmentHolder() {
+        return equipmentHolder;
+    }
 
-    public ArrayList<Equipment> getWornEquipments() { return wornEquipments; }
+    public void setEquipEquipmentHolder(ArrayList<Equipment> e) {
+        equipmentHolder = e;
+    }
 
-    public void setWornEquipments(ArrayList<Equipment> e) { wornEquipments = e; }
+    public ArrayList<Equipment> getWornEquipments() {
+        return wornEquipments;
+    }
 
+    public void setWornEquipments(ArrayList<Equipment> e) {
+        wornEquipments = e;
+    }
 
+    public boolean add(Equipment e) {
+        if(equipmentHolder.size()+ 1 <= maxSize){
+            equipmentHolder.add(e);
+            return true;
+        }
+        return false;
+    }
 
-    public void toggle(Equipment equipment){
+    public void toggle(Equipment e){
         Virologist v = backpack.getVirologist();
         Field f = v.getField();
         if(f.canChangeEquipment()){
-            if(wornEquipments.contains(equipment))
-                equipment.unEquip();
+            if(wornEquipments.contains(e))
+                e.unEquip();
             else
-                equipment.equip();
+                e.equip();
         }
     }
 
-    public void toss(Equipment equipment){
-        if(!(wornEquipments.contains(equipment))){
+
+    public void toss(Equipment e){
+        if(!(wornEquipments.contains(e))){
             Virologist v = backpack.getVirologist();
             Field f = v.getField();
             if(f.canChangeEquipment()){
-                equipmentHolder.remove(equipment);
-                SafeHouse sh = (SafeHouse) f;
-                sh.add(equipment);
+                equipmentHolder.remove(e);
+                f.add(e);
             }
         }
     }
 
-    public boolean add(Equipment equipment) {
-        if(GodController.askYesOrNo("Is the backpack full? (y/n)")) {
-            return false;
-        }else {
-            equipmentHolder.add(equipment);
-            return true;
-        }
+    @Override
+    public int getCurrentSize() {
+        return equipmentHolder.size();
     }
-
-
 }

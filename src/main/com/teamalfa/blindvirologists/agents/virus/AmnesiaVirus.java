@@ -1,5 +1,6 @@
 package main.com.teamalfa.blindvirologists.agents.virus;
 
+import main.com.teamalfa.blindvirologists.city.fields.Field;
 import main.com.teamalfa.blindvirologists.virologist.Virologist;
 
 public class AmnesiaVirus extends Virus {
@@ -8,7 +9,7 @@ public class AmnesiaVirus extends Virus {
     public void apply(Virologist target) {
         if (target.infectedBy(this)) {
             this.target = target;
-            this.target.getBackPack().deleteAllGeneticCodes();
+            this.target.getBackpack().deleteAllGeneticCodes();
         }
     }
 }

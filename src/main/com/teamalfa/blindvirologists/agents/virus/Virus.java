@@ -23,7 +23,9 @@ abstract public class Virus extends Agent {
     }
 
     public boolean affectRobbability() {
-        return false;
+        AController.printCall(this, "affectRobbability", null);
+
+        return (boolean) AController.printReturn(false);
     }
 
     public Field affectMovement(Field current) {

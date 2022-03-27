@@ -70,10 +70,9 @@ public class Virologist {
     }
 
     public void use(Agent a, Virologist v){
-        AController.printCall(this, "use", new Object[]{a, v});
-        if(a != null) {
+        AController.printCall(this, "use", new Object[] {a, v});
+        if (!checkUsageAffect())
             a.apply(v);
-        }
         AController.printReturn(null);
     }
 
@@ -84,15 +83,20 @@ public class Virologist {
     }
 
     public Backpack robbed() {
+        AController.printCall(this, "robbed", null);
         if(!(activeViruses.isEmpty())){
-            if(activeViruses.get(0).affectRobbability())
-                return this.backpack;
+            if(activeViruses.get(0).affectRobbability()){
+                return (Backpack) AController.printReturn(this.backpack);
+            }
         }
+        AController.printReturn( "robbed");
         return null;
     }
 
     public void rob(Virologist v) {
+        AController.printCall(this, "rob", new Object[] {v});
         v.robbed();
+        AController.printReturn(null);
     }
 
     public boolean infectedBy(Virus virus) {
@@ -137,9 +141,14 @@ public class Virologist {
     //todo searchForVirologist
 
     private boolean checkUsageAffect() {
-        if(activeViruses.isEmpty())
+        AController.printCall(this, "checkUsageAffect", null);
+        if(activeViruses.isEmpty()){
+            AController.printReturn(false);
             return false;
-        else return activeViruses.get(0).affectUsage();
+        }
+
+        AController.printReturn(activeViruses.get(0).affectUsage());
+        return activeViruses.get(0).affectUsage();
     }
 
     public void addVirus(Virus virus) {

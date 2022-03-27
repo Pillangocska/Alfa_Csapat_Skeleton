@@ -16,14 +16,6 @@ abstract public class Virus extends Agent {
         }
     }
 
-    /*@Override
-    public void step() {
-        super.step();
-        if (target != null && duration == 0) {
-            target.removeVirus(this);
-        }
-    }*/
-
     public boolean affectUsage() {
         return false;
     }
@@ -33,6 +25,13 @@ abstract public class Virus extends Agent {
     }
 
     public Field affectMovement(Field current) {
+        AController.printCall(this, "affectMovement", new Object[]{current});
+
+        AController.printReturn("null");
         return null;
+    }
+
+    public int getPriority() {
+        return priority;
     }
 }

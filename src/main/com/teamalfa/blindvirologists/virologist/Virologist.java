@@ -5,12 +5,14 @@ import main.com.teamalfa.blindvirologists.agents.Agent;
 import main.com.teamalfa.blindvirologists.agents.Vaccine;
 import main.com.teamalfa.blindvirologists.agents.genetic_code.GeneticCode;
 import main.com.teamalfa.blindvirologists.agents.virus.Virus;
+import main.com.teamalfa.blindvirologists.agents.virus.VirusComparator;
 import main.com.teamalfa.blindvirologists.city.fields.Field;
 import main.com.teamalfa.blindvirologists.equipments.Equipment;
 import main.com.teamalfa.blindvirologists.equipments.active_equipments.ActiveEquipment;
 import main.com.teamalfa.blindvirologists.virologist.backpack.Backpack;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class Virologist {
     private ArrayList<GeneticCode> protectionBank;
@@ -36,7 +38,8 @@ public class Virologist {
     }
 
     public Field getField() {
-        return field;
+        AController.printCall(this, "getField", null);
+        return (Field) AController.printReturn(field);
     }
     public void setField(Field f){
         this.field = f;
@@ -51,11 +54,8 @@ public class Virologist {
         AController.printCall(this, "move", new Object[]{destination});
 
         Field modified = null;
-        for(Virus virus : activeViruses) {
-            modified = virus.affectMovement(field);
-        }
 
-
+        if(!activeViruses.isEmpty()) modified = activeViruses.get(0).affectMovement(field);
         if(modified != null) destination = modified;
 
         field.remove(this);
@@ -125,6 +125,7 @@ public class Virologist {
 
     public void addVirus(Virus virus) {
         activeViruses.add(virus);
+        sortViruses();
     }
 
     private boolean checkRobbable() {
@@ -148,5 +149,9 @@ public class Virologist {
 
     public void removeActive(ActiveEquipment activeEquipment) {
         activeEquipments.remove(activeEquipment);
+    }
+
+    private void sortViruses(){
+        Collections.sort(activeViruses, new VirusComparator());
     }
 }

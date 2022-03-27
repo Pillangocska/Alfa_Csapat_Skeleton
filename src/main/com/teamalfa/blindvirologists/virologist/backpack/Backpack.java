@@ -32,10 +32,12 @@ public class Backpack {
     }
 
     public void add(Equipment equipment) {
-        if(equipmentPocket.getEquipmentHolder().add(equipment)){
+        AController.printCall(this, "add", new Object[]{equipment});
+        if(equipmentPocket.add(equipment)){
             SafeHouse safeHouse = (SafeHouse) virologist.getField();
             safeHouse.remove(equipment);
         }
+        AController.printReturn(null);
     }
 
     public void add(GeneticCode geneticCode) {

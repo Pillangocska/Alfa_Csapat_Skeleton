@@ -34,7 +34,7 @@ public class EquipmentPocket extends Pocket{
     }
 
     public ArrayList<Equipment> getEquipmentHolder() {
-        return equipmentHolder;
+        return (ArrayList<Equipment>) AController.printReturn(equipmentHolder);
     }
 
     public void setEquipEquipmentHolder(ArrayList<Equipment> e) {
@@ -49,12 +49,16 @@ public class EquipmentPocket extends Pocket{
         wornEquipments = e;
     }
 
-    public boolean add(Equipment e) {
-        if(equipmentHolder.size()+ 1 <= maxSize){
-            equipmentHolder.add(e);
-            return true;
+    public boolean add(Equipment equipment) {
+        AController.printCall(this, "add", new Object[]{equipment});
+
+        Boolean ret = false;
+        if(AController.askYesOrNo("Does it fit to the bag?")){
+            equipmentHolder.add(equipment);
+            ret = true;
         }
-        return false;
+
+        return  (Boolean)AController.printReturn(ret);
     }
 
     public void toggle(Equipment e){

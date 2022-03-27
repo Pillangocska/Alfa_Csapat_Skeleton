@@ -52,6 +52,7 @@ public class AController{
             for(int i = 0; i < callCount; i++) msg += "\t";
             msg += "└→return ";
             if(object instanceof Boolean) msg += (Boolean) object;
+            else if(object instanceof String) msg += (String) object;
             else msg += objectNameDict.get(object);
             System.out.println(msg);
         }
@@ -236,11 +237,13 @@ public class AController{
     }
 
     public void Test3(){
-        Virologist v1 = new Virologist();
-        SafeHouse sh1 = new SafeHouse();
-        Field f1 = new Field();
-        f1.setNeighbour(sh1);
-        v1.setField(f1);
+        Virologist v1 = new Virologist(); objectNameDict.put(v1, "virologist"); v1.registerObjects();
+        SafeHouse sh1 = new SafeHouse(); objectNameDict.put(sh1, "safeHouse");
+        Cloak cloak = new Cloak(); objectNameDict.put(cloak, "cloak");
+        sh1.add(cloak);
+        Field current = new Field(); objectNameDict.put(current, "current");
+        current.setNeighbour(sh1);
+        v1.setField(current);
         v1.move(sh1);
         v1.search();
     }
@@ -270,22 +273,34 @@ public class AController{
     }
 
     public void Test5(){
-        Virologist v1 = new Virologist();
-        ParalyzeVirus pv = new ParalyzeVirus();
-        v1.infectedBy(pv);
-        ArrayList<Field> fields = v1.getField().getNeighbours();
-        v1.move(fields.get(0));
+        Virologist v1 = new Virologist(); objectNameDict.put(v1, "virologist");
+        ParalyzeVirus pv = new ParalyzeVirus(); objectNameDict.put(pv, "paralyzeVirus");
+        v1.addVirus(pv);
+
+        Field current = new Field(); objectNameDict.put(current, "current");
+        Field destination = new Field(); objectNameDict.put(destination, "destination");
+        current.setNeighbour(destination);
+        v1.setField(current);
+
+        v1.move(destination);
     }
 
     public void Test6(){
-        Virologist v1 = new Virologist();
-        AmnesiaVirus av = new AmnesiaVirus();
-        v1.infectedBy(av);
-        ArrayList<Field> fields = v1.getField().getNeighbours();
-        v1.move(fields.get(0));
+        Virologist v1 = new Virologist(); objectNameDict.put(v1, "virologist");
+        AmnesiaVirus av = new AmnesiaVirus(); objectNameDict.put(av, "amnesiaVirus");
+        v1.addVirus(av);
+
+        Field current = new Field(); objectNameDict.put(current, "current");
+        Field destination = new Field(); objectNameDict.put(destination, "destination");
+        current.setNeighbour(destination);
+        v1.setField(current);
+
+        v1.move(destination);
     }
-    //todo
+
     public void Test7(){
+        Virologist v1 = new Virologist(); objectNameDict.put(v1, "virologist"); v1.registerObjects();
+
     }
     //todo
     public void Test8(){

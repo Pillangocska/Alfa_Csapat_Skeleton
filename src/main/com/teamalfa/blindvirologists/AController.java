@@ -395,14 +395,18 @@ public class AController{
         Cloak cloak = new Cloak();
         v1.getBackpack().getEquipmentPocket().toss(cloak);
     }
-
+    //Virologist applies ParalyzeVirus with gloves on another Virologist who has no equipment or vaccination
     public void Test18(){
-        Virologist v1 = new Virologist();
-        Virologist v2 = new Virologist();
-        Field field = new Field();
-        v1.setField(field);
-        v2.setField(field);
-        //todo itt baj van a szekvenciaval
+        //set up virologists and create virus
+        Virologist v1 = new Virologist(); objectNameDict.put(v1, "virologist1"); v1.registerObjects();
+        Virologist v2 = new Virologist(); objectNameDict.put(v2, "virologist2"); v1.registerObjects();
+        Field current = new Field(); objectNameDict.put(current, "current");
+        ParalyzeCode pc = new ParalyzeCode(); objectNameDict.put(pc, "paralyzeCode");
+        v1.getBackpack().createVirus(pc);
+        v1.setField(current);
+        v2.setField(current);
+        Agent toUse = (Agent) askMultiChoice("agent to use",v1.getBackpack().getAgents());
+        v1.use(toUse, v2);
     }
 
     public void Test19(){

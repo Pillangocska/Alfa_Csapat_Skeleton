@@ -17,7 +17,7 @@ import java.util.Collections;
 public class Virologist {
     private ArrayList<GeneticCode> protectionBank;
     private ArrayList<Virus> activeViruses;
-    private ArrayList<Equipment> wornEquipments = new ArrayList<>();
+    private ArrayList<Equipment> wornEquipment = new ArrayList<>();
     private ArrayList<ActiveEquipment> activeEquipments = new ArrayList<>();
     private Backpack backpack;
     private Field field;
@@ -152,6 +152,7 @@ public class Virologist {
     }
 
     public void addVirus(Virus virus) {
+        AController.printCall(this, "addVirus", new Object[] {virus});
         activeViruses.add(virus);
         sortViruses();
     }
@@ -162,16 +163,16 @@ public class Virologist {
     }
 
     public void removeWorn(Equipment equipment) {
-        wornEquipments.remove(equipment);
+        wornEquipment.remove(equipment);
     }
 
     public void addWorn(Equipment equipment) {
-        if(wornEquipments.size() < 3)
-            wornEquipments.add(equipment);
+        if(wornEquipment.size() < 3)
+            wornEquipment.add(equipment);
     }
 
     public void addActive(ActiveEquipment activeEquipment) {
-        if(wornEquipments.size() < 3)
+        if(wornEquipment.size() < 3)
             activeEquipments.add(activeEquipment);
     }
 

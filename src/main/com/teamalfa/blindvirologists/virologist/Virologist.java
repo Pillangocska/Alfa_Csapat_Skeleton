@@ -51,7 +51,7 @@ public class Virologist {
     }
 
     public void move(Field destination) {
-        AController.printCall(this, "move", new Object[]{destination});
+        AController.printCall(this, "move", new Object[]{destination, 4});
 
         Field modified = null;
 

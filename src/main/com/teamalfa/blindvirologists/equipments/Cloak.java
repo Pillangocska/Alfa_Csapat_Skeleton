@@ -1,5 +1,7 @@
 package main.com.teamalfa.blindvirologists.equipments;
 
+import main.com.teamalfa.blindvirologists.AController;
+
 import java.util.Random;
 
 public class Cloak extends Equipment{
@@ -11,11 +13,7 @@ public class Cloak extends Equipment{
     }
 
     public boolean protect(){
-        Random r = new Random();
-        double tmp = 100 * r.nextDouble();
-        if(tmp >= protectionRate)
-            return true;
-        return false;
+       return AController.askYesOrNo("Did the cloak protect the virologist?");
     }
 
 }

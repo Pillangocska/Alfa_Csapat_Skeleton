@@ -12,7 +12,24 @@ public class DanceCode extends GeneticCode{
      */
     @Override
     public DanceVirus createVirus(ElementBank elementBank) {
-        return new DanceVirus();
+        // print out method call
+        AController.printCall(this, "createVirus", new Object[]{elementBank});
+
+        // create paralyze virus and register its name to the controller
+        DanceVirus dv = new DanceVirus();
+        AController.registerObject(null, dv, "danceVirus");
+        // register nested objects
+        dv.registerObjects();
+
+        // handle cost
+        ElementBank cost = dv.getCost();
+        if(elementBank.remove(cost)) {
+            return (DanceVirus) AController.printReturn(dv);
+        }
+
+        // Null return can be printed out like this
+        AController.printReturn("null");
+        return null;
     }
 
     /**

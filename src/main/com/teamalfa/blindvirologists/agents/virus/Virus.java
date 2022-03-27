@@ -36,7 +36,8 @@ abstract public class Virus extends Agent {
      * @return false
      */
     public boolean affectUsage() {
-        return false;
+        AController.printCall(this, "affectUsage", null);
+        return (boolean) AController.printReturn(false);
     }
 
     /**

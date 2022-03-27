@@ -26,12 +26,4 @@ public class Vaccine extends Agent {
 
         AController.printReturn(null);
     }
-
-    //@Override
-    /*public void step() {
-        super.step();
-        if(target != null && duration == 0) {
-            target.removeProtection(geneticCode);
-        }
-    }*/
 }

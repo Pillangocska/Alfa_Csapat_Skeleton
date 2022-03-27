@@ -1,6 +1,7 @@
 package main.com.teamalfa.blindvirologists;
 
 import main.com.teamalfa.blindvirologists.agents.genetic_code.AmnesiaCode;
+import main.com.teamalfa.blindvirologists.agents.genetic_code.GeneticCode;
 import main.com.teamalfa.blindvirologists.agents.genetic_code.ParalyzeCode;
 import main.com.teamalfa.blindvirologists.agents.virus.AmnesiaVirus;
 import main.com.teamalfa.blindvirologists.agents.virus.DanceVirus;
@@ -13,6 +14,7 @@ import main.com.teamalfa.blindvirologists.equipments.Bag;
 import main.com.teamalfa.blindvirologists.equipments.Cloak;
 import main.com.teamalfa.blindvirologists.equipments.active_equipments.Gloves;
 import main.com.teamalfa.blindvirologists.virologist.Virologist;
+import main.com.teamalfa.blindvirologists.virologist.backpack.ElementBank;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -22,6 +24,13 @@ public class AController{
 
     static private int callCount = 0;  // store call depth visualized with tabulators
     static private HashMap<Object, String> objectNameDict = new HashMap<>();  // store object names for printing
+
+    public static void registerObject(Object parent, Object object, String name) {
+        if(parent == null)
+            objectNameDict.put(object, name);
+        else
+            objectNameDict.put(object, objectNameDict.get(parent)+"."+name);
+    }
 
     public static int getCallCount() {
         return callCount;
@@ -41,7 +50,10 @@ public class AController{
         if(object != null) {
             String msg = "";
             for(int i = 0; i < callCount; i++) msg += "\t";
-            msg += "return " + objectNameDict.get(object);
+            msg += "└→return ";
+            if(object instanceof Boolean) msg += (Boolean) object;
+            else if(object instanceof String) msg += (String) object;
+            else msg += objectNameDict.get(object);
             System.out.println(msg);
         }
 
@@ -198,69 +210,97 @@ public class AController{
                 System.exit(0);
                 break;
             }
-            backToMenu();
+            backToMenuAndReset();
         }
     }
 
     public void Test1(){
-        Virologist v1 = new Virologist();
-        Laboratory l1 = new Laboratory();
+        Virologist v1 = new Virologist(); objectNameDict.put(v1, "virologist"); v1.registerObjects();
+        Laboratory l1 = new Laboratory(); objectNameDict.put(l1, "laboratory");
+        AmnesiaCode ac = new AmnesiaCode(); objectNameDict.put(ac, "amnesiaCode");
+        l1.setGeneticCode(ac);
         v1.setField(l1);
         v1.search();
     }
 
     public void Test2(){
-        Virologist v1 = new Virologist();
-        StoreHouse s1 = new StoreHouse(20,30);
+        Virologist v1 = new Virologist(); objectNameDict.put(v1, "virologist"); v1.registerObjects();
+        StoreHouse s1 = new StoreHouse(); objectNameDict.put(s1, "storeHouse");
+        ElementBank elements = new ElementBank(
+                askNumberInput("How many amino acids are on the field?"),
+                askNumberInput("How many nucleotides are on the field?")
+        );
+        objectNameDict.put(elements, "elements"+elements.getAminoAcid()+"_"+elements.getNucleotide());
+        s1.setElements(elements);
         v1.setField(s1);
         v1.search();
     }
 
     public void Test3(){
-        Virologist v1 = new Virologist();
-        SafeHouse sh1 = new SafeHouse();
-        Field f1 = new Field();
-        f1.setNeighbour(sh1);
-        v1.setField(f1);
+        Virologist v1 = new Virologist(); objectNameDict.put(v1, "virologist"); v1.registerObjects();
+        SafeHouse sh1 = new SafeHouse(); objectNameDict.put(sh1, "safeHouse");
+        Cloak cloak = new Cloak(); objectNameDict.put(cloak, "cloak");
+        sh1.add(cloak);
+        Field current = new Field(); objectNameDict.put(current, "current");
+        current.setNeighbour(sh1);
+        v1.setField(current);
         v1.move(sh1);
         v1.search();
     }
 
     public void Test4(){
+        // create Virologist and DanceVirus and add them to hashmap
         Virologist v1 = new Virologist(); objectNameDict.put(v1, "v1");
         DanceVirus dv = new DanceVirus(); objectNameDict.put(dv, "danceVirus");
         v1.addVirus(dv);
+
+        // create fields and add them to hashmap
         Field current = new Field(); objectNameDict.put(current, "current");
         Field destination = new Field(); objectNameDict.put(destination, "destination");
+
+        // create neighbours for current field and add them to hashmap
         ArrayList<Field> neighbours = new ArrayList<>();
         for(int i = 0; i < 4; i++) {
-            Field field = new Field(); objectNameDict.put(field, "alteredDestination");
+            Field field = new Field(); objectNameDict.put(field, "alteredDestination"+i);
             neighbours.add(field);
         }
         neighbours.add(destination);
-        current.setNeighbours(neighbours);
+        current.setNeighbours(neighbours); objectNameDict.put(neighbours, "neighbours");
         v1.setField(current);
-        callCount = 0;
+
+        // start move test
         v1.move(destination);
     }
 
     public void Test5(){
-        Virologist v1 = new Virologist();
-        ParalyzeVirus pv = new ParalyzeVirus();
-        v1.infectedBy(pv);
-        ArrayList<Field> fields = v1.getField().getNeighbours();
-        v1.move(fields.get(0));
+        Virologist v1 = new Virologist(); objectNameDict.put(v1, "virologist");
+        ParalyzeVirus pv = new ParalyzeVirus(); objectNameDict.put(pv, "paralyzeVirus");
+        v1.addVirus(pv);
+
+        Field current = new Field(); objectNameDict.put(current, "current");
+        Field destination = new Field(); objectNameDict.put(destination, "destination");
+        current.setNeighbour(destination);
+        v1.setField(current);
+
+        v1.move(destination);
     }
 
     public void Test6(){
-        Virologist v1 = new Virologist();
-        AmnesiaVirus av = new AmnesiaVirus();
-        v1.infectedBy(av);
-        ArrayList<Field> fields = v1.getField().getNeighbours();
-        v1.move(fields.get(0));
+        Virologist v1 = new Virologist(); objectNameDict.put(v1, "virologist");
+        AmnesiaVirus av = new AmnesiaVirus(); objectNameDict.put(av, "amnesiaVirus");
+        v1.addVirus(av);
+
+        Field current = new Field(); objectNameDict.put(current, "current");
+        Field destination = new Field(); objectNameDict.put(destination, "destination");
+        current.setNeighbour(destination);
+        v1.setField(current);
+
+        v1.move(destination);
     }
-    //todo
+
     public void Test7(){
+        Virologist v1 = new Virologist(); objectNameDict.put(v1, "virologist"); v1.registerObjects();
+
     }
     //todo
     public void Test8(){
@@ -370,13 +410,13 @@ public class AController{
     }
 
     public static String readInput(String msg) {
-        System.out.println(msg);
+        System.out.print(msg);
         return new Scanner(System.in).nextLine();
     }
 
     public static boolean askYesOrNo(String msg) {
         // Returns true if user answered yes.
-        String question = "\n" +  msg + " (y/n)";
+        String question = "\n" +  msg + " (y/n): ";
         while(true) {
             switch(readInput(question)) {
                 case "y": return true;
@@ -385,10 +425,10 @@ public class AController{
         }
     }
 
-    public static Integer askMultiChoice(Integer count, String optionType) {
-        String question = "\nThe possible choices for " + optionType + " are:\n";
-        for(int i = 0; i < count; i++) {
-            question += "\t" + i + ". " + optionType + "\n";
+    public static Object askMultiChoice(String optionType, ArrayList<Object> choices) {
+        String question = "\nThe possible choices for " + optionType + " in " + objectNameDict.get(choices)+ " are:\n";
+        for(int i = 0; i < choices.size(); i++) {
+            question += "\t"+ i + ". " + objectNameDict.get(choices.get(i))+ "\n";
         }
         question += "answer (number): ";
         while(true) {
@@ -398,13 +438,28 @@ public class AController{
             }catch (NumberFormatException ex) {
                 continue;
             }
-            if(answer >=0 && answer < count) {
-                return answer;
+            if(answer >=0 && answer < choices.size()) {
+                return choices.get(answer);
             }
         }
     }
 
-    private void backToMenu() {
-        readInput("\n Press any key to get back to menu . . . ");
+    public static Integer askNumberInput(String question) {
+        question += "\n answer (number): ";
+        while(true) {
+            Integer answer;
+            try {
+                answer = Integer.parseInt(readInput(question));
+            } catch (NumberFormatException ex) {
+                continue;
+            }
+            if(answer >= 0) return answer;
+        }
+    }
+
+    private void backToMenuAndReset() {
+        callCount = 0;
+        objectNameDict.clear();
+        readInput("\n Press enter to get back to menu . . . ");
     }
 }

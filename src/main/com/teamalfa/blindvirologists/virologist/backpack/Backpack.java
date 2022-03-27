@@ -1,5 +1,6 @@
 package main.com.teamalfa.blindvirologists.virologist.backpack;
 
+import main.com.teamalfa.blindvirologists.AController;
 import main.com.teamalfa.blindvirologists.agents.genetic_code.GeneticCode;
 import main.com.teamalfa.blindvirologists.city.fields.SafeHouse;
 import main.com.teamalfa.blindvirologists.equipments.Equipment;
@@ -23,15 +24,36 @@ public class Backpack {
         this.virologist = virologist;
     }
 
+    public void registerObjects() {
+        AController.registerObject(this, equipmentPocket, "eqPocket"); equipmentPocket.registerObjects();
+        AController.registerObject(this, agentPocket, "agPocket"); agentPocket.registerObjects();
+        AController.registerObject(this, elementBank, "elBank");
+        AController.registerObject(this, geneticCodePocket, "gcPocket");
+    }
+
     public void add(Equipment equipment) {
-        if(equipmentPocket.getEquipmentHolder().add(equipment)){
+        AController.printCall(this, "add", new Object[]{equipment});
+        if(equipmentPocket.add(equipment)){
             SafeHouse safeHouse = (SafeHouse) virologist.getField();
             safeHouse.remove(equipment);
         }
+        AController.printReturn(null);
     }
 
     public void add(GeneticCode geneticCode) {
-        geneticCodePocket.getGeneticCodes().add(geneticCode);
+        AController.printCall(this,"add", new Object[]{geneticCode});
+
+
+        geneticCodePocket.add(geneticCode);
+
+        AController.printReturn(null);
+    }
+
+    public void add(ElementBank elements) {
+        AController.printCall(this, "add", new Object[]{elements});
+        ElementBank added = elementBank.add(elements);
+        elements.remove(added);
+        AController.printReturn(null);
     }
 
     public void createVirus(GeneticCode geneticCode) {

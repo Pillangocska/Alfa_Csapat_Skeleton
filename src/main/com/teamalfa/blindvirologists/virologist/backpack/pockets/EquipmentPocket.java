@@ -1,4 +1,5 @@
 package main.com.teamalfa.blindvirologists.virologist.backpack.pockets;
+import main.com.teamalfa.blindvirologists.AController;
 import main.com.teamalfa.blindvirologists.city.fields.Field;
 import main.com.teamalfa.blindvirologists.equipments.Equipment;
 import main.com.teamalfa.blindvirologists.virologist.Virologist;
@@ -19,6 +20,11 @@ public class EquipmentPocket extends Pocket{
         maxSize = 5;
     }
 
+    public void registerObjects(){
+        AController.registerObject(this, equipmentHolder, "eqHolder");
+        AController.registerObject(this, wornEquipments, "worHolder");
+    }
+
     public Backpack getBackpack() {
         return backpack;
     }
@@ -28,7 +34,7 @@ public class EquipmentPocket extends Pocket{
     }
 
     public ArrayList<Equipment> getEquipmentHolder() {
-        return equipmentHolder;
+        return (ArrayList<Equipment>) AController.printReturn(equipmentHolder);
     }
 
     public void setEquipEquipmentHolder(ArrayList<Equipment> e) {
@@ -43,12 +49,16 @@ public class EquipmentPocket extends Pocket{
         wornEquipments = e;
     }
 
-    public boolean add(Equipment e) {
-        if(equipmentHolder.size()+ 1 <= maxSize){
-            equipmentHolder.add(e);
-            return true;
+    public boolean add(Equipment equipment) {
+        AController.printCall(this, "add", new Object[]{equipment});
+
+        Boolean ret = false;
+        if(AController.askYesOrNo("Does it fit to the bag?")){
+            equipmentHolder.add(equipment);
+            ret = true;
         }
-        return false;
+
+        return  (Boolean)AController.printReturn(ret);
     }
 
     public void toggle(Equipment e){

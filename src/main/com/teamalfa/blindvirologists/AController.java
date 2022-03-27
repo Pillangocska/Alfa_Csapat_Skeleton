@@ -360,10 +360,13 @@ public class AController{
     }
 
     public void Test13(){
-        Virologist v1 = new Virologist();
-        SafeHouse sh1 = new SafeHouse();
+        Virologist v1 = new Virologist(); objectNameDict.put(v1, "virologist");
+        SafeHouse sh1 = new SafeHouse(); objectNameDict.put(sh1, "safeHouse");
         v1.setField(sh1);
+        v1.registerObjects();
         Cloak cloak = new Cloak();
+        cloak.setVirologist(v1);
+
         v1.getBackpack().getEquipmentPocket().toggle(cloak);
     }
 

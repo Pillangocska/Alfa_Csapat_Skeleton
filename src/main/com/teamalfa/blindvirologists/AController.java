@@ -224,7 +224,13 @@ public class AController{
 
     public void Test2(){
         Virologist v1 = new Virologist(); objectNameDict.put(v1, "virologist"); v1.registerObjects();
-        StoreHouse s1 = new StoreHouse(20,30); objectNameDict.put(s1, "storeHouse"); s1.registerObjects();
+        StoreHouse s1 = new StoreHouse(); objectNameDict.put(s1, "storeHouse");
+        ElementBank elements = new ElementBank(
+                askNumberInput("How many amino acids are on the field?"),
+                askNumberInput("How many nucleotides are on the field?")
+        );
+        objectNameDict.put(elements, "elements"+elements.getAminoAcid()+"_"+elements.getNucleotide());
+        s1.setElements(elements);
         v1.setField(s1);
         v1.search();
     }
@@ -389,13 +395,13 @@ public class AController{
     }
 
     public static String readInput(String msg) {
-        System.out.println(msg);
+        System.out.print(msg);
         return new Scanner(System.in).nextLine();
     }
 
     public static boolean askYesOrNo(String msg) {
         // Returns true if user answered yes.
-        String question = "\n" +  msg + " (y/n)";
+        String question = "\n" +  msg + " (y/n): ";
         while(true) {
             switch(readInput(question)) {
                 case "y": return true;
@@ -420,6 +426,19 @@ public class AController{
             if(answer >=0 && answer < choices.size()) {
                 return choices.get(answer);
             }
+        }
+    }
+
+    public static Integer askNumberInput(String question) {
+        question += "\n answer (number): ";
+        while(true) {
+            Integer answer;
+            try {
+                answer = Integer.parseInt(readInput(question));
+            } catch (NumberFormatException ex) {
+                continue;
+            }
+            if(answer >= 0) return answer;
         }
     }
 

@@ -16,6 +16,10 @@ public class Vaccine extends Agent {
     public Vaccine(ParalyzeCode paralyzeCode) {
     }
 
+    /**
+     * This method is called when a Vaccine is used on a Virologist.
+     * @param target The virologist that got vaccinated.
+     */
     @Override
     public void apply(Virologist target) {
         target.protectedBy(this);

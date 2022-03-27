@@ -425,6 +425,13 @@ public class AController{
         }
     }
 
+    /**
+     * This method is used when one of the testcases stop
+     * so the user can decide which branch of the test should be run.
+     * @param optionType The name of the choice that have to be made.
+     * @param choices The options the user can choose from.
+     * @return The chose option.
+     */
     public static Object askMultiChoice(String optionType, ArrayList<Object> choices) {
         String question = "\nThe possible choices for " + optionType + " in " + objectNameDict.get(choices)+ " are:\n";
         for(int i = 0; i < choices.size(); i++) {
@@ -457,6 +464,10 @@ public class AController{
         }
     }
 
+    /**
+     * This method is called when one of the testcases has finished running.
+     * By pressing any key the user will be escorted back into the main menu.
+     */
     private void backToMenuAndReset() {
         callCount = 0;
         objectNameDict.clear();

@@ -15,6 +15,9 @@ public class GeneticCodeBank {
         codes.add(new AmnesiaCode());
     }
 
+    /**
+     * Creates one object in the beginning of the game.
+     */
     static {
         instance = new GeneticCodeBank();
     }

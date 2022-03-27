@@ -59,7 +59,8 @@ public class Virologist {
      * The method is called when the virologist moves to another field,
      * it checks if the virologist is affected by any viruses, if yes
      * the affectmovement method of the virus with the highest priority number is called.
-     * It overrides the parameter of the field the virologist would like to step onto.
+     * It overrides the parameter of the field the virologist would like to step onto, or returns with null.
+     * If the return statement is null than the destination field doesn't change, if it's not then it changes to the return statement.
      * After that the virologist is removed from their current field, and is accepted by the destination field.
      * @param destination the field the virologist would like to step onto.
      */
@@ -197,7 +198,11 @@ public class Virologist {
      * @param equipment The equipment the virologist removed.
      */
     public void removeWorn(Equipment equipment) {
+        AController.printCall(this, "removeWorn", new Object[]{equipment});
+
         wornEquipment.remove(equipment);
+
+        AController.printReturn(null);
     }
 
     /**
@@ -206,8 +211,12 @@ public class Virologist {
      * @param equipment The equipment the virologist added.
      */
     public void addWorn(Equipment equipment) {
+        AController.printCall(this, "addWorn", new Object[]{equipment});
+
         if(wornEquipment.size() < 3)
             wornEquipment.add(equipment);
+
+        AController.printReturn(null);
     }
 
     /**

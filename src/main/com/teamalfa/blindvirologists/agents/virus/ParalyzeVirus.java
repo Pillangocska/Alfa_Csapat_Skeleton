@@ -18,6 +18,7 @@ public class ParalyzeVirus extends Virus {
 
     @Override
     public boolean affectRobbability() {
-        return true;
+        AController.printCall(this, "affectRobbability", null);
+        return (boolean) AController.printReturn(true);
     }
 }

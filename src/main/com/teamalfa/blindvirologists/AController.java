@@ -381,18 +381,18 @@ public class AController{
     }
 
     public void Test19(){
-        Virologist v1 = new Virologist();
-        Virologist v2 = new Virologist();
-        Field field = new Field();
-        v1.setField(field);
-        v2.setField(field);
-        v2.infectedBy(new ParalyzeVirus());
+        Virologist v1 = new Virologist(); objectNameDict.put(v1, "virologist1"); v1.registerObjects();
+        Virologist v2 = new Virologist(); objectNameDict.put(v2, "virologist2"); v2.registerObjects();
+        Field current = new Field();
+        v1.setField(current);
+        v2.setField(current);
+        v2.addVirus(new ParalyzeVirus());
         v1.rob(v2);
     }
 
     public void Test20(){
-        Virologist v1 = new Virologist();
-        Virologist v2 = new Virologist();
+        Virologist v1 = new Virologist(); objectNameDict.put(v1, "virologist_1"); v1.registerObjects();
+        Virologist v2 = new Virologist(); objectNameDict.put(v2, "virologist_2"); v2.registerObjects();
         Field field = new Field();
         v1.setField(field);
         v2.setField(field);

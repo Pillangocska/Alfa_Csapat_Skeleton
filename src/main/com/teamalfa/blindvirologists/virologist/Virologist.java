@@ -83,23 +83,28 @@ public class Virologist {
     }
 
     public Backpack robbed() {
+        AController.printCall(this, "robbed", null);
         if(!(activeViruses.isEmpty())){
-            if(activeViruses.get(0).affectRobbability())
-                return this.backpack;
+            if(activeViruses.get(0).affectRobbability()){
+                return (Backpack) AController.printReturn(this.backpack);
+            }
         }
+        AController.printReturn( "robbed");
         return null;
     }
 
     public void rob(Virologist v) {
+        AController.printCall(this, "rob", new Object[] {v});
         v.robbed();
+        AController.printReturn(null);
     }
 
     public boolean infectedBy(Virus virus) {
         // Temporary implementation.
         AController.printCall(this, "infectedBy", new Object[] {virus});
         activeViruses.add(virus);
-        AController.printReturn("true");
-        return true;
+
+        return (boolean) AController.printReturn(true);
     }
 
     public void protectedBy(Vaccine vaccine) {

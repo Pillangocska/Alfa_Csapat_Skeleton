@@ -26,6 +26,15 @@ public class Virologist {
         backpack = new Backpack(this);
     }
 
+    public void registerObjects() {
+        AController.registerObject(this, protectionBank, "protectionBank");
+        AController.registerObject(this, activeViruses, "activeViruses");
+        AController.registerObject(this, backpack, "backpack");
+
+        // register nested objects
+        backpack.registerObjects();
+    }
+
     public Field getField() {
         return field;
     }
@@ -33,7 +42,10 @@ public class Virologist {
         this.field = f;
     }
 
-    public Backpack getBackpack() { return backpack; }
+    public Backpack getBackpack() {
+        AController.printCall(this, "getBackpack", null);
+        return (Backpack) AController.printReturn(backpack);
+    }
 
     public void move(Field destination) {
         AController.printCall(this, "move", new Object[]{destination});
@@ -98,9 +110,9 @@ public class Virologist {
     }
 
     public void search() {
+        AController.printCall(this, "search", null);
         field.searchedBy(this);
-        //Printouts
-        System.out.println("Virologist.search()");
+        AController.printReturn(null);
     }
 
     //todo searchForVirologist

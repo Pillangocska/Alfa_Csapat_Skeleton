@@ -1,5 +1,6 @@
 package main.com.teamalfa.blindvirologists.virologist.backpack.pockets;
 
+import main.com.teamalfa.blindvirologists.AController;
 import main.com.teamalfa.blindvirologists.agents.Agent;
 import main.com.teamalfa.blindvirologists.virologist.backpack.Backpack;
 
@@ -13,6 +14,10 @@ public class AgentPocket extends Pocket{
     public AgentPocket(Backpack b) {
         backpack = b;
         maxSize = 7;
+    }
+
+    public void registerObjects() {
+        AController.registerObject(this, agentHolder, "agHolder");
     }
 
     public void addAgent(Agent a) {

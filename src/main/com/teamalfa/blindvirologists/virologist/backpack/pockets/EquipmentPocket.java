@@ -1,4 +1,5 @@
 package main.com.teamalfa.blindvirologists.virologist.backpack.pockets;
+import main.com.teamalfa.blindvirologists.AController;
 import main.com.teamalfa.blindvirologists.city.fields.Field;
 import main.com.teamalfa.blindvirologists.equipments.Equipment;
 import main.com.teamalfa.blindvirologists.virologist.Virologist;
@@ -17,6 +18,11 @@ public class EquipmentPocket extends Pocket{
         backpack = b;
         //wornSize = 3;
         maxSize = 5;
+    }
+
+    public void registerObjects(){
+        AController.registerObject(this, equipmentHolder, "eqHolder");
+        AController.registerObject(this, wornEquipments, "worHolder");
     }
 
     public Backpack getBackpack() {

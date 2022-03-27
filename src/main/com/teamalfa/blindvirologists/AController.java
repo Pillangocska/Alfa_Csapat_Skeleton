@@ -1,6 +1,7 @@
 package main.com.teamalfa.blindvirologists;
 
 import main.com.teamalfa.blindvirologists.agents.genetic_code.AmnesiaCode;
+import main.com.teamalfa.blindvirologists.agents.genetic_code.GeneticCode;
 import main.com.teamalfa.blindvirologists.agents.genetic_code.ParalyzeCode;
 import main.com.teamalfa.blindvirologists.agents.virus.AmnesiaVirus;
 import main.com.teamalfa.blindvirologists.agents.virus.DanceVirus;
@@ -23,6 +24,10 @@ public class AController{
     static private int callCount = 0;  // store call depth visualized with tabulators
     static private HashMap<Object, String> objectNameDict = new HashMap<>();  // store object names for printing
 
+    public static void registerObject(Object parent, Object object, String name) {
+        objectNameDict.put(object, objectNameDict.get(parent)+"."+name);
+    }
+
     public static int getCallCount() {
         return callCount;
     }
@@ -41,7 +46,7 @@ public class AController{
         if(object != null) {
             String msg = "";
             for(int i = 0; i < callCount; i++) msg += "\t";
-            msg += "return " + objectNameDict.get(object);
+            msg += "└→return " + objectNameDict.get(object);
             System.out.println(msg);
         }
 
@@ -203,8 +208,10 @@ public class AController{
     }
 
     public void Test1(){
-        Virologist v1 = new Virologist();
-        Laboratory l1 = new Laboratory();
+        Virologist v1 = new Virologist(); objectNameDict.put(v1, "virologist"); v1.registerObjects();
+        Laboratory l1 = new Laboratory(); objectNameDict.put(l1, "laboratory");
+        AmnesiaCode ac = new AmnesiaCode(); objectNameDict.put(ac, "amnesiaCode");
+        l1.setGeneticCode(ac);
         v1.setField(l1);
         v1.search();
     }

@@ -1,11 +1,14 @@
 package main.com.teamalfa.blindvirologists.virologist.backpack.pockets;
 
+import main.com.teamalfa.blindvirologists.GodController;
 import main.com.teamalfa.blindvirologists.city.fields.Field;
+import main.com.teamalfa.blindvirologists.city.fields.SafeHouse;
 import main.com.teamalfa.blindvirologists.equipments.Equipment;
 import main.com.teamalfa.blindvirologists.virologist.Virologist;
 import main.com.teamalfa.blindvirologists.virologist.backpack.Backpack;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class EquipmentPocket extends Pocket{
 
@@ -27,27 +30,37 @@ public class EquipmentPocket extends Pocket{
 
 
 
-    public void toggle(Equipment e){
+    public void toggle(Equipment equipment){
         Virologist v = backpack.getVirologist();
         Field f = v.getField();
         if(f.canChangeEquipment()){
-            if(wornEquipments.contains(e))
-                e.unEquip();
+            if(wornEquipments.contains(equipment))
+                equipment.unEquip();
             else
-                e.Equip();
+                equipment.equip();
         }
     }
 
-
-    public void toss(Equipment e){
-        if(!(wornEquipments.contains(e))){
+    public void toss(Equipment equipment){
+        if(!(wornEquipments.contains(equipment))){
             Virologist v = backpack.getVirologist();
             Field f = v.getField();
             if(f.canChangeEquipment()){
-                equipmentHolder.remove(e);
-                f.add(e);
+                equipmentHolder.remove(equipment);
+                SafeHouse sh = (SafeHouse) f;
+                sh.add(equipment);
             }
         }
     }
+
+    public boolean add(Equipment equipment) {
+        if(GodController.askYesOrNo("Is the backpack full? (y/n)")) {
+            return false;
+        }else {
+            equipmentHolder.add(equipment);
+            return true;
+        }
+    }
+
 
 }

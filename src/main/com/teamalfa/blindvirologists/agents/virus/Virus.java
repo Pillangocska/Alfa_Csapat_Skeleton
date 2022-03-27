@@ -5,9 +5,6 @@ import main.com.teamalfa.blindvirologists.city.fields.Field;
 import main.com.teamalfa.blindvirologists.virologist.Virologist;
 
 abstract public class Virus extends Agent {
-
-    protected int priority;
-
     @Override
     public void apply(Virologist target) {
         if (target.infectedBy(this)) {

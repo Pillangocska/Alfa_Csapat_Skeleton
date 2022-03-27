@@ -309,4 +309,23 @@ public class AController{
             }
         }
     }
+
+    public static Integer askMultiChoice(Integer count, String optionType) {
+        String question = "The possible choices for " + optionType + " are:\n";
+        for(int i = 0; i < count; i++) {
+            question += "\t" + i + ". " + optionType + "\n";
+        }
+        question += "answer (number): ";
+        while(true) {
+            Integer answer;
+            try {
+                answer = Integer.parseInt(readInput(question));
+            }catch (NumberFormatException ex) {
+                continue;
+            }
+            if(answer >=0 && answer < count) {
+                return answer;
+            }
+        }
+    }
 }

@@ -144,7 +144,7 @@ public class Virologist {
             ret = false;
         }else {
             // check if protected by any equipment
-            for(Equipment equipment : wornEquipments)
+            for(Equipment equipment : wornEquipment)
                 if(equipment.protect())
                     ret = false;
         }

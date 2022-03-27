@@ -218,7 +218,6 @@ public class Virologist {
      * @param virus The virus the virologist gets infected by.
      */
     public void addVirus(Virus virus) {
-        AController.printCall(this, "addVirus", new Object[] {virus});
         activeViruses.add(virus);
         sortViruses();
     }

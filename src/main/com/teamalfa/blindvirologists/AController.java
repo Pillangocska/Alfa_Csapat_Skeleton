@@ -239,7 +239,7 @@ public class AController{
         // create neighbours for current field and add them to hashmap
         ArrayList<Field> neighbours = new ArrayList<>();
         for(int i = 0; i < 4; i++) {
-            Field field = new Field(); objectNameDict.put(field, "alteredDestination");
+            Field field = new Field(); objectNameDict.put(field, "alteredDestination"+i);
             neighbours.add(field);
         }
         neighbours.add(destination);
@@ -391,10 +391,10 @@ public class AController{
         }
     }
 
-    public static Integer askMultiChoice(Integer count, String optionType) {
-        String question = "\nThe possible choices for " + optionType + " are:\n";
-        for(int i = 0; i < count; i++) {
-            question += "\t" + i + ". " + optionType + "\n";
+    public static Object askMultiChoice(String optionType, ArrayList<Object> choices) {
+        String question = "\nThe possible choices for " + optionType + " in " + objectNameDict.get(choices)+ " are:\n";
+        for(int i = 0; i < choices.size(); i++) {
+            question += "\t"+ i + ". " + objectNameDict.get(choices.get(i))+ "\n";
         }
         question += "answer (number): ";
         while(true) {
@@ -404,8 +404,8 @@ public class AController{
             }catch (NumberFormatException ex) {
                 continue;
             }
-            if(answer >=0 && answer < count) {
-                return answer;
+            if(answer >=0 && answer < choices.size()) {
+                return choices.get(answer);
             }
         }
     }

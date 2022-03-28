@@ -251,6 +251,7 @@ public class AController{
     }
 
     public void Test2(){
+        printHeader("2: Virologist searches in a storehouse and collects elements");
         // turn off method printing
         showMethods = false;
 
@@ -275,6 +276,7 @@ public class AController{
     }
 
     public void Test3(){
+        printHeader("3: Virologist searches a safehouse that contains equipment and picks it up");
         // turn off method printing
         showMethods = false;
 
@@ -296,6 +298,7 @@ public class AController{
     }
 
     public void Test4(){
+        printHeader("4: Virologist moves while affected by DanceVirus");
         // turn off method printing
         showMethods = false;
 
@@ -326,6 +329,7 @@ public class AController{
     }
 
     public void Test5(){
+        printHeader("5: Virologist moves while affected by ParalyzeVirus");
         // turn off method printing
         showMethods = false;
 
@@ -346,6 +350,7 @@ public class AController{
     }
 
     public void Test6(){
+        printHeader("6: Virologist moves while affected by AmnesiaVirus");
         // turn off method printing
         showMethods = false;
 
@@ -366,6 +371,7 @@ public class AController{
     }
 
     public void Test7(){
+        printHeader("7: Virologist uses ParalyzeVirus on another Virologist, who’s vaccinated without equipment");
         // turn off method printing
         showMethods = false;
 
@@ -393,6 +399,7 @@ public class AController{
     }
 
     public void Test8(){
+        printHeader("8: Virologist uses AmnesiaVirus on another Virologist who’s not vaccinated but wears cape");
         // turn off method printing
         showMethods = false;
 
@@ -420,6 +427,7 @@ public class AController{
     }
 
     public void Test9(){
+        printHeader("9: Virologist uses DanceVirus on another Virologist who’s not vaccinated but wears Gloves");
         // turn off method printing
         showMethods = false;
 
@@ -447,6 +455,7 @@ public class AController{
     }
 
     public void Test10(){
+        printHeader("10: Virologist wants to create a ParalyzeVirus, but doesn't have enough elements");
         // turn of
         showMethods = false;
 
@@ -459,6 +468,7 @@ public class AController{
     }
 
     public void Test11(){
+        printHeader("11: Virologist creates an AmnesiaVaccine and uses it on itself");
         Virologist v1 = new Virologist(); objectNameDict.put(v1, "virologist"); v1.registerObjects();
         AmnesiaCode amnesiaCode = new AmnesiaCode(); objectNameDict.put(amnesiaCode, "amnesiaCode");
         v1.getBackpack().createVaccine(amnesiaCode);
@@ -467,6 +477,7 @@ public class AController{
     }
 
     public void Test12(){
+        printHeader("12: Virologist starts to wear a bag, and then takes it off");
         Virologist v1 = new Virologist(); objectNameDict.put(v1, "virologist");
         SafeHouse sh1 = new SafeHouse(); objectNameDict.put(sh1, "safeHouse");
         v1.setField(sh1);
@@ -478,6 +489,7 @@ public class AController{
     }
 
     public void Test13(){
+        printHeader("13: Virologist starts to wear a cloak and then takes it off");
         Virologist v1 = new Virologist(); objectNameDict.put(v1, "virologist");
         SafeHouse sh1 = new SafeHouse(); objectNameDict.put(sh1, "safeHouse");
         v1.setField(sh1);
@@ -489,6 +501,7 @@ public class AController{
     }
 
     public void Test14(){
+        printHeader("14: Virologist starts to wear gloves and then takes it off");
         Virologist v1 = new Virologist();
         SafeHouse sh1 = new SafeHouse();
         v1.setField(sh1);
@@ -497,6 +510,7 @@ public class AController{
     }
 
     public void Test15(){
+        printHeader("15: Virologist wants to toggle bag, but the Virologist isn't  in a Safehouse");
         Virologist v1 = new Virologist();
         Field field = new Field();
         v1.setField(field);
@@ -505,6 +519,7 @@ public class AController{
     }
 
     public void Test16(){
+        printHeader("16: Virologist tosses a cloak from the backpack to a Safehouse");
         Virologist v1 = new Virologist();
         SafeHouse sh1 = new SafeHouse();
         v1.setField(sh1);
@@ -513,6 +528,7 @@ public class AController{
     }
 
     public void Test17(){
+        printHeader("17: Virologist tosses a cloak from the backpack to a Field");
         Virologist v1 = new Virologist();
         Field field = new Field();
         v1.setField(field);
@@ -521,6 +537,7 @@ public class AController{
     }
     //Virologist applies ParalyzeVirus with gloves on another Virologist who has no equipment or vaccination
     public void Test18(){
+        printHeader("18: Virologist applies ParalyzeVirus with gloves on another Virologist who has no equipment or vaccination");
         //set up virologists and create virus
         Virologist v1 = new Virologist(); objectNameDict.put(v1, "virologist1"); v1.registerObjects();
         Virologist v2 = new Virologist(); objectNameDict.put(v2, "virologist2"); v1.registerObjects();
@@ -534,6 +551,7 @@ public class AController{
     }
 
     public void Test19(){
+        printHeader("19: Virologist robs another Virologist");
         Virologist v1 = new Virologist(); objectNameDict.put(v1, "virologist1"); v1.registerObjects();
         Virologist v2 = new Virologist(); objectNameDict.put(v2, "virologist2"); v2.registerObjects();
         Field current = new Field();
@@ -544,8 +562,14 @@ public class AController{
     }
 
     public void Test20(){
-        Virologist v1 = new Virologist(); objectNameDict.put(v1, "virologist_1"); v1.registerObjects();
-        Virologist v2 = new Virologist(); objectNameDict.put(v2, "virologist_2"); v2.registerObjects();
+        printHeader("20: Virologist can’t rob  enemy because not paralyzed");
+        Virologist v1 = new Virologist(); objectNameDict.put(v1, "virologist"); v1.registerObjects();
+        Virologist v2 = new Virologist(); objectNameDict.put(v2, "enemy"); v2.registerObjects();
+
+        AmnesiaVirus av = new AmnesiaVirus(); objectNameDict.put(av, "amnesiaVirus");
+        v2.addVirus(av);
+
+
         Field field = new Field();
         v1.setField(field);
         v2.setField(field);
@@ -553,12 +577,21 @@ public class AController{
     }
 
     public void Test21(){
-        Virologist v1 = new Virologist(); objectNameDict.put(v1, "virologist_1"); v1.registerObjects();
-        Virologist v2 = new Virologist(); objectNameDict.put(v2, "virologist_2"); v2.registerObjects();
+        printHeader("21: VirologistA tries to use DanceVirus on VirologistB but VirologistB is under the effect of Paralyze Virus");
+
+        // create virologists and register them to the hashmap
+        Virologist v1 = new Virologist(); objectNameDict.put(v1, "virologist"); v1.registerObjects();
+        Virologist v2 = new Virologist(); objectNameDict.put(v2, "enemy"); v2.registerObjects();
         Field field = new Field(); objectNameDict.put(field, "field");
+
+        // set relations
         v1.setField(field);
         v2.setField(field);
-        v1.addVirus(new ParalyzeVirus());
+
+        // create viruses and set relations
+        ParalyzeVirus paralyzeVirus = new ParalyzeVirus(); objectNameDict.put(paralyzeVirus, "paralyzeVirus");
+        v1.addVirus(paralyzeVirus);
+
         v1.use(new DanceVirus(), v2);
     }
 

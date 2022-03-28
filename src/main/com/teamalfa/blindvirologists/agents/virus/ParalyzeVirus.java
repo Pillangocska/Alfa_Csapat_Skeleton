@@ -23,7 +23,8 @@ public class ParalyzeVirus extends Virus {
      */
     @Override
     public boolean affectUsage() {
-        return true;
+        AController.printCall(this, "affectUsage", null);
+        return (Boolean) AController.printReturn(true);
     }
 
     /**

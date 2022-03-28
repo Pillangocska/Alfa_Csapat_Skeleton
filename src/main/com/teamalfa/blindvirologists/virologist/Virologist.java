@@ -85,13 +85,13 @@ public class Virologist {
 
     /**
      * This method is called when the virologist uses an agent on another virologist.
-     * It calles the agent's apply method to the other virologist.
+     * It calls the agent's apply method to the other virologist.
      * @param a The agent that is used on a virologist.
      * @param v The virologist the agent is used on.
      */
     public void use(Agent a, Virologist v){
         AController.printCall(this, "use", new Object[] {a, v});
-        if (!checkUsageAffect())
+        if (a != null && !checkUsageAffect())
             a.apply(v);
         AController.printReturn(null);
     }
@@ -113,7 +113,7 @@ public class Virologist {
                 return (Backpack) AController.printReturn(this.backpack);
             }
         }
-        AController.printReturn( "robbed");
+        AController.printReturn( "null");
         return null;
     }
 
@@ -204,13 +204,14 @@ public class Virologist {
      */
     private boolean checkUsageAffect() {
         AController.printCall(this, "checkUsageAffect", null);
+
         if(activeViruses.isEmpty()){
             AController.printReturn(false);
             return false;
         }
 
-        AController.printReturn(activeViruses.get(0).affectUsage());
-        return activeViruses.get(0).affectUsage();
+
+        return (Boolean) AController.printReturn(activeViruses.get(0).affectUsage());
     }
 
     /**

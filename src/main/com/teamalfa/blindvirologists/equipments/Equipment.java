@@ -7,11 +7,15 @@ abstract public class Equipment {
     protected Virologist virologist;
 
     public void unEquip(){
+        AController.printCall(this, "unEquip", null);
         virologist.removeWorn(this);
+        AController.printReturn(null);
     }
 
     public void equip(){
+        AController.printCall(this, "equip", null);
         virologist.addWorn(this);
+        AController.printReturn(null);
     }
 
     public void setVirologist(Virologist v) {this.virologist = v;}

@@ -56,7 +56,10 @@ public class Field {
      * @return false
      */
     public boolean canChangeEquipment() {
-        return false;
+        // print method call
+        AController.printCall(this, "canChangeEquipment", null);
+        // print return value
+        return (Boolean) AController.printReturn(false);
     }
 
     /**

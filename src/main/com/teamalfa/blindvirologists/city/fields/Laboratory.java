@@ -14,8 +14,12 @@ public class Laboratory extends Field{
      */
     @Override
     public void searchedBy(Virologist virologist) {
+        // print method call
         AController.printCall(this, "searchedBy", new Object[]{virologist});
+
         virologist.getBackpack().add(geneticCode);
+
+        // print return value
         AController.printReturn(null);
     }
     public void setGeneticCode(GeneticCode geneticCode) {

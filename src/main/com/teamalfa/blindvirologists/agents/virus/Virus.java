@@ -2,6 +2,7 @@ package main.com.teamalfa.blindvirologists.agents.virus;
 
 import main.com.teamalfa.blindvirologists.AController;
 import main.com.teamalfa.blindvirologists.agents.Agent;
+import main.com.teamalfa.blindvirologists.agents.genetic_code.GeneticCode;
 import main.com.teamalfa.blindvirologists.city.fields.Field;
 import main.com.teamalfa.blindvirologists.virologist.Virologist;
 
@@ -18,16 +19,15 @@ abstract public class Virus extends Agent {
     public void apply(Virologist target) {
         AController.printCall(this, "apply", new Object[]{target});
         if (target.infectedBy(this)) {
-            //this.target = target;
-            this.setTarget(target);
-            target.addVirus(this);
+            this.addVirologist(target);
         }
         AController.printReturn(null);
     }
 
-    public void setTarget(Virologist v){
-        AController.printCall(this, "setTarget", new Object[] {v});
+    public void addVirologist(Virologist v){
+        AController.printCall(this, "addVirologist", new Object[] {v});
         this.target = v;
+        AController.printReturn(null);
     }
 
     /**

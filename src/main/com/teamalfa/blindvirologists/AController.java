@@ -17,6 +17,7 @@ import main.com.teamalfa.blindvirologists.equipments.Cloak;
 import main.com.teamalfa.blindvirologists.equipments.active_equipments.Gloves;
 import main.com.teamalfa.blindvirologists.virologist.Virologist;
 import main.com.teamalfa.blindvirologists.virologist.backpack.ElementBank;
+import main.com.teamalfa.blindvirologists.virologist.backpack.pockets.EquipmentPocket;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -53,7 +54,7 @@ public class AController{
             // append tabs to visualize depth
             msg.append("\t".repeat(Math.max(0, callCount)));
             // append return sign
-            msg.append("└→return ");
+            msg.append("->return ");
 
             // use object data instead of hashmap value
             if(object instanceof Boolean || object instanceof String)
@@ -494,7 +495,7 @@ public class AController{
         SafeHouse sh1 = new SafeHouse(); objectNameDict.put(sh1, "safeHouse");
         v1.setField(sh1);
         v1.registerObjects();
-        Cloak cloak = new Cloak();
+        Cloak cloak = new Cloak(); objectNameDict.put(cloak, "cloak");
         cloak.setVirologist(v1);
 
         v1.getBackpack().getEquipmentPocket().toggle(cloak);
@@ -502,77 +503,128 @@ public class AController{
 
     public void Test14(){
         printHeader("14: Virologist starts to wear gloves and then takes it off");
-        Virologist v1 = new Virologist();
-        SafeHouse sh1 = new SafeHouse();
+        Virologist v1 = new Virologist(); objectNameDict.put(v1, "virologist");
+        SafeHouse sh1 = new SafeHouse(); objectNameDict.put(sh1, "safeHouse");
         v1.setField(sh1);
-        Gloves glove = new Gloves();
-        v1.getBackpack().getEquipmentPocket().toggle(glove);
+        v1.registerObjects();
+        Gloves glove = new Gloves(); objectNameDict.put(glove, "glove");
+        glove.setVirologist(v1);
+
+        showMethods = false;
+        EquipmentPocket tmp = v1.getBackpack().getEquipmentPocket();
+        showMethods = true;
+        tmp.toggle(glove);
     }
 
     public void Test15(){
         printHeader("15: Virologist wants to toggle bag, but the Virologist isn't  in a Safehouse");
-        Virologist v1 = new Virologist();
-        Field field = new Field();
+        Virologist v1 = new Virologist(); objectNameDict.put(v1, "virologist");
+        Field field = new Field(); objectNameDict.put(field, "field");
         v1.setField(field);
-        Bag bag = new Bag(2000);
-        v1.getBackpack().getEquipmentPocket().toggle(bag);
+        v1.registerObjects();
+        Bag bag = new Bag(2000); objectNameDict.put(bag, "bag");
+
+        showMethods = false;
+        EquipmentPocket tmp = v1.getBackpack().getEquipmentPocket();
+        showMethods = true;
+        tmp.toggle(bag);
     }
 
     public void Test16(){
         printHeader("16: Virologist tosses a cloak from the backpack to a Safehouse");
-        Virologist v1 = new Virologist();
-        SafeHouse sh1 = new SafeHouse();
+        Virologist v1 = new Virologist(); objectNameDict.put(v1, "virologist");
+        SafeHouse sh1 = new SafeHouse(); objectNameDict.put(sh1, "safeHouse");
         v1.setField(sh1);
-        Cloak cloak = new Cloak();
-        v1.getBackpack().getEquipmentPocket().toss(cloak);
+        v1.registerObjects();
+        Cloak cloak = new Cloak(); objectNameDict.put(cloak, "cloak");
+        cloak.setVirologist(v1);
+        showMethods = false;
+        EquipmentPocket tmp = v1.getBackpack().getEquipmentPocket();
+        showMethods = true;
+        tmp.toss(cloak);
     }
 
     public void Test17(){
         printHeader("17: Virologist tosses a cloak from the backpack to a Field");
-        Virologist v1 = new Virologist();
-        Field field = new Field();
+        // turn off method printing
+        showMethods = false;
+
+        Virologist v1 = new Virologist(); objectNameDict.put(v1, "virologist"); v1.registerObjects();
+        Field field = new Field(); objectNameDict.put(field, "field");
         v1.setField(field);
-        Cloak cloak = new Cloak();
-        v1.getBackpack().getEquipmentPocket().toss(cloak);
+        Cloak cloak = new Cloak(); objectNameDict.put(cloak, "cloak");
+
+        EquipmentPocket ep =  v1.getBackpack().getEquipmentPocket();
+
+        // start test
+        showMethods = true;
+        ep.toss(cloak);
     }
     //Virologist applies ParalyzeVirus with gloves on another Virologist who has no equipment or vaccination
     public void Test18(){
         printHeader("18: Virologist applies ParalyzeVirus with gloves on another Virologist who has no equipment or vaccination");
-        //set up virologists and create virus
-        Virologist v1 = new Virologist(); objectNameDict.put(v1, "virologist1"); v1.registerObjects();
-        Virologist v2 = new Virologist(); objectNameDict.put(v2, "virologist2"); v1.registerObjects();
-        Field current = new Field(); objectNameDict.put(current, "current");
-        ParalyzeCode pc = new ParalyzeCode(); objectNameDict.put(pc, "paralyzeCode");
-        v1.getBackpack().createVirus(pc);
-        v1.setField(current);
-        v2.setField(current);
-        Agent toUse = (Agent) askMultiChoice("agent to use",v1.getBackpack().getAgents());
-        v1.use(toUse, v2);
+        // turn off method printing
+        showMethods = false;
+
+        // set up virologists
+        Virologist v1 = new Virologist(); objectNameDict.put(v1, "virologist");
+        Virologist v2 = new Virologist(); objectNameDict.put(v2, "enemy"); v1.registerObjects();
+
+        DanceVirus dv = new DanceVirus(); objectNameDict.put(dv, "danceVirus"); dv.registerObjects();
+        Gloves gloves = new Gloves(); objectNameDict.put(gloves, "gloves");
+        gloves.setVirologist(v1);
+
+        // Put virus to backpack
+        v1.addVirus(dv);
+        v1.addWorn(gloves);
+        v1.addActive(gloves); v1.registerObjects();
+
+        // start test
+        showMethods = true;
+        v1.use(gloves, v2);
     }
 
     public void Test19(){
         printHeader("19: Virologist robs another Virologist");
-        Virologist v1 = new Virologist(); objectNameDict.put(v1, "virologist1"); v1.registerObjects();
-        Virologist v2 = new Virologist(); objectNameDict.put(v2, "virologist2"); v2.registerObjects();
+
+        // turn off method printing
+        showMethods = false;
+
+        // create virologists and register them
+        Virologist v1 = new Virologist(); objectNameDict.put(v1, "virologist"); v1.registerObjects();
+        Virologist v2 = new Virologist(); objectNameDict.put(v2, "enemy"); v2.registerObjects();
         Field current = new Field();
+
+        // set relation
         v1.setField(current);
         v2.setField(current);
         v2.addVirus(new ParalyzeVirus());
+
+        // start test
+        showMethods = true;
         v1.rob(v2);
     }
 
     public void Test20(){
         printHeader("20: Virologist can’t rob  enemy because not paralyzed");
+        // turn off method printing
+        showMethods = false;
+
+        // create virologists and register them
         Virologist v1 = new Virologist(); objectNameDict.put(v1, "virologist"); v1.registerObjects();
         Virologist v2 = new Virologist(); objectNameDict.put(v2, "enemy"); v2.registerObjects();
 
+        // create amnesiaVirus and set relations
         AmnesiaVirus av = new AmnesiaVirus(); objectNameDict.put(av, "amnesiaVirus");
         v2.addVirus(av);
 
-
+        // set relations
         Field field = new Field();
         v1.setField(field);
         v2.setField(field);
+
+        // start test
+        showMethods = true;
         v1.rob(v2);
     }
 
@@ -708,5 +760,9 @@ public class AController{
         }
         header += '\n';
         System.out.println(header);
+    }
+
+    public static void main(String[] args) {
+
     }
 }

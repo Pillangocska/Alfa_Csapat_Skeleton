@@ -4,6 +4,7 @@ import main.com.teamalfa.blindvirologists.AController;
 import main.com.teamalfa.blindvirologists.agents.Agent;
 import main.com.teamalfa.blindvirologists.agents.Vaccine;
 import main.com.teamalfa.blindvirologists.agents.genetic_code.GeneticCode;
+import main.com.teamalfa.blindvirologists.agents.virus.AmnesiaVirus;
 import main.com.teamalfa.blindvirologists.agents.virus.Virus;
 import main.com.teamalfa.blindvirologists.agents.virus.VirusComparator;
 import main.com.teamalfa.blindvirologists.city.fields.Field;
@@ -80,7 +81,11 @@ public class Virologist {
     }
 
     public void use(ActiveEquipment a, Virologist v) {
-        //todo
+        AController.printCall(this, "use", new Object[]{a, v});
+        if(!AController.askYesOrNo("Is the equipment on cooldown?")) {
+            a.use(v);
+        }
+        AController.printReturn(null);
     }
 
     /**
@@ -174,7 +179,9 @@ public class Virologist {
      * @param virus The expired virus.
      */
     public void removeVirus(Virus virus) {
+        AController.printCall(this, "removeVirus", new Object[]{virus});
         activeViruses.remove(virus);
+        AController.printReturn(null);
     }
 
     /**
@@ -279,5 +286,12 @@ public class Virologist {
      */
     private void sortViruses(){
         Collections.sort(activeViruses, new VirusComparator());
+    }
+
+    public ArrayList<Object> getViruses() {
+        ArrayList<Object> objects = new ArrayList<>();
+        for(Virus virus : activeViruses)
+            objects.add(virus);
+        return objects;
     }
 }

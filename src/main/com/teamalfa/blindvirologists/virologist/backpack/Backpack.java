@@ -46,10 +46,7 @@ public class Backpack {
 
     public void add(GeneticCode geneticCode) {
         AController.printCall(this,"add", new Object[]{geneticCode});
-
-
         geneticCodePocket.add(geneticCode);
-
         AController.printReturn(null);
     }
 
@@ -80,7 +77,6 @@ public class Backpack {
 
     public Virologist getVirologist() {
         AController.printCall(this, "getVirologist", null);
-
         return (Virologist) AController.printReturn(virologist);
     }
 

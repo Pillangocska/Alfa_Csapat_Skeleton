@@ -1,2 +1,2 @@
 # Alfa_Csapat_Skeleton
-meow
+Az alfa csapat Szoftver Projekt Laboratórium tárgyra készített projektjének skeleton váza.
